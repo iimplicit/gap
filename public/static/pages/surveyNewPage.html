@@ -2,5 +2,5 @@
 
 <form novalidate>
   Title : <input type="text" ng-model="survey.title" /><br />
-  <input type="submit" ng-click="create(survey)"/>
+  <input type="submit" ng-disabled="!survey.title" ng-click="create(survey)"/>
 </form>
