@@ -77,6 +77,10 @@ app.controller("surveyNewPageController", ["$scope", "$http", "$routeParams",
       $scope.survey = {};
 
       $scope.create = function(survey){
+        // Form Validation - empty form should not be submitted
+        if(!$scope.survey.title || $scope.survey.title === '') { return; }
+
+        // POST Request to create a survey
         $http.post("http://localhost:3000/api/surveys", survey).
           success(function(data){
             console.log("success")
