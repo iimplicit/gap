@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+var debug = require('debug')('survey');
+var app = require('../app');
+
+app.set('port', process.env.PORT || 3000);
+
+var server = app.listen(app.get('port'), function() {
+  debug('Express server listening on port ' + server.address().port);
+});
+
+process.on('uncaughtException', function(err) {
+  // TODO logging
+  console.log(err.stack);
+  process.exit(1);
+});

@@ -1,0 +1,8 @@
+{
+  "mongodb" : {
+    "dbURI": "mongodb://localhost/survey"
+  },
+  "jwt": {
+    "secret": "jwtscrethellowrold123"
+  }
+}
