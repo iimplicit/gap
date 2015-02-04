@@ -3,5 +3,6 @@
 <ul>
   <li ng-repeat="survey in surveys">
     <a href="{{ 'survey/' + survey._id + '/view/' }}">{{ survey.title }}</a>
+    <a href="{{ 'survey/' + survey._id + '/edit/' }}">edit</a>
   </li>
 </ul>
