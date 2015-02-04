@@ -108,6 +108,15 @@ app.controller("surveyEditPageController", ["$scope", "$http", "$routeParams",
         });
 
       $scope.update = function(survey){
+        // PUT Request to update a survey
+        $http.put("http://localhost:3000/api/surveys/" + $routeParams.id, survey).
+          success(function(data){
+            console.log("success")
+            // should implement event after successfully updated
+          }).
+          error(function(data){
+            console.log("error")
+          });
       }
     }
 ]);
