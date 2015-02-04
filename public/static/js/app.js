@@ -80,6 +80,10 @@ app.controller("surveyNewPageController", ["$scope", "$http", "$routeParams",
         $http.post("http://localhost:3000/api/surveys", survey).
           success(function(data){
             console.log("success")
+
+            // after a survey is successfully created,
+            // title user has entered, should be removed
+            $scope.survey = {};
           }).
           error(function(data){
             console.log("error")
