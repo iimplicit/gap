@@ -74,7 +74,12 @@ app.controller("surveysPageController", ["$scope", "$http",
 
 app.controller("surveyNewPageController", ["$scope", "$http", "$routeParams",
     function($scope, $http, $routeParams){
-        console.log("survey-new => this is id", $routeParams.id);
+      $scope.survey = {};
+
+      $scope.create = function(survey){
+        // POST Request
+        console.log($scope.survey)
+      }
     }
 ]);
 
