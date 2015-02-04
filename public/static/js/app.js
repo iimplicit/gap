@@ -89,8 +89,7 @@ app.controller("surveyViewPageController", ["$scope", "$http", "$routeParams",
       // http://localhost:3000/api/surveys/54d1374ea0f09231943ee5d2
       $http.get("http://localhost:3000/api/surveys/" + $routeParams.id).
         success(function(data){
-          // $scope.survey = data.survey;
-          console.log("success")
+          $scope.survey = data.survey;
         }).
         error(function(data){
           console.log("error")
