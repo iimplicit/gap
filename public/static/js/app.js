@@ -62,7 +62,13 @@ app.controller("signinPageController", ["$scope", "$http",
 
 app.controller("surveysPageController", ["$scope", "$http",
 	function($scope, $http){
-
+    $http.get("http://localhost:3000/api/surveys/").
+      success(function(data){
+        console.log("success")
+      }).
+      error(function(data){
+        console.log("error")
+      });
 	}
 ]);
 
