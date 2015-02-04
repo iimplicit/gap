@@ -1,5 +1,11 @@
 var app = angular.module("GAP", ["ngRoute"]);
 
+// for testing purpost, set authentication header
+// must be removed before pull request
+app.config(['$httpProvider', function($httpProvider) {
+    $httpProvider.defaults.headers.common['Authorization'] = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NGQyNzA4YTk4NzRhZGNmNDA2N2ZhMDkiLCJ1c2VybmFtZSI6InN5bnRheGZpc2giLCJwYXNzd29yZCI6InRlc3QifQ.vXTcAYsvAQFHKrZ1gBYYlrFXMijZjP0OvcKii4BcHl0";
+}])
+
 app.config(["$routeProvider", "$locationProvider",
     function($routeProvider, $locationProvider) {
         $routeProvider.when('/', {
@@ -56,7 +62,13 @@ app.controller("signinPageController", ["$scope", "$http",
 
 app.controller("surveysPageController", ["$scope", "$http",
 	function($scope, $http){
-
+    $http.get("http://localhost:3000/api/surveys/").
+      success(function(data){
+        $scope.surveys = data.surveyList;
+      }).
+      error(function(data){
+        console.log("error")
+      });
 	}
 ]);
 
