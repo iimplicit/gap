@@ -74,7 +74,25 @@ app.controller("surveysPageController", ["$scope", "$http",
 
 app.controller("surveyNewPageController", ["$scope", "$http", "$routeParams",
     function($scope, $http, $routeParams){
-        console.log("survey-new => this is id", $routeParams.id);
+      $scope.survey = {};
+
+      $scope.create = function(survey){
+        // Form Validation - empty form should not be submitted
+        if(!$scope.survey.title || $scope.survey.title === '') { return; }
+
+        // POST Request to create a survey
+        $http.post("http://localhost:3000/api/surveys", survey).
+          success(function(data){
+            console.log("success")
+
+            // after a survey is successfully created,
+            // title user has entered, should be removed
+            $scope.survey = {};
+          }).
+          error(function(data){
+            console.log("error")
+          });
+      }
     }
 ]);
 
