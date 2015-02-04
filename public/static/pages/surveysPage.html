@@ -2,6 +2,6 @@
 
 <ul>
   <li ng-repeat="survey in surveys">
-    {{ survey.title }}
+    <a href="{{ 'survey/' + survey._id + '/view/' }}">{{ survey.title }}</a>
   </li>
 </ul>
