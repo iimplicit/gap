@@ -77,8 +77,13 @@ app.controller("surveyNewPageController", ["$scope", "$http", "$routeParams",
       $scope.survey = {};
 
       $scope.create = function(survey){
-        // POST Request
-        console.log($scope.survey)
+        $http.post("http://localhost:3000/api/surveys", survey).
+          success(function(data){
+            console.log("success")
+          }).
+          error(function(data){
+            console.log("error")
+          });
       }
     }
 ]);
