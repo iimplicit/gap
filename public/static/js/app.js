@@ -98,7 +98,26 @@ app.controller("surveyNewPageController", ["$scope", "$http", "$routeParams",
 
 app.controller("surveyEditPageController", ["$scope", "$http", "$routeParams",
     function($scope, $http, $routeParams){
-        console.log("survey-edit => this is id", $routeParams.id);
+      // http://localhost:3000/api/surveys/54d1374ea0f09231943ee5d2
+      $http.get("http://localhost:3000/api/surveys/" + $routeParams.id).
+        success(function(data){
+          $scope.survey = data.survey;
+        }).
+        error(function(data){
+          console.log("error");
+        });
+
+      $scope.update = function(survey){
+        // PUT Request to update a survey
+        $http.put("http://localhost:3000/api/surveys/" + $routeParams.id, survey).
+          success(function(data){
+            console.log("success")
+            // should implement event after successfully updated
+          }).
+          error(function(data){
+            console.log("error")
+          });
+      }
     }
 ]);
 
