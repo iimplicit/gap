@@ -76,21 +76,73 @@ app.controller("surveyNewPageController", ["$scope", "$http", "$routeParams",
     function($scope, $http, $routeParams){
       $scope.survey = {};
 
+      $scope.survey.formSetting = {
+        nations: [],
+        categories: [],
+        indicies: []
+      }
+
+      $scope.addNation = function($event, nation){
+        $event.preventDefault();
+        var addingNation = {};
+        addingNation.name = nation;
+        addingNation.index = $scope.survey.formSetting.nations.length;
+        $scope.nation = "";
+
+        $scope.survey.formSetting.nations.push(addingNation);
+      }
+
+      $scope.removeNation = function($index){
+        $scope.survey.formSetting.nations.splice($index, 1);
+      }
+
+      $scope.addCategory = function($event, category){
+        $event.preventDefault();
+        var addingCategory = {};
+        addingCategory.name = category;
+        addingCategory.index = $scope.survey.formSetting.categories.length;
+        $scope.category = "";
+
+        $scope.survey.formSetting.categories.push(addingCategory);
+      }
+
+      $scope.removeCategory = function($index){
+        $scope.survey.formSetting.categories.splice($index, 1);
+      }
+
+      $scope.addIndex = function($event, index){
+        $event.preventDefault();
+        var addingIndex = {};
+        addingIndex.name = index;
+        addingIndex.index = $scope.survey.formSetting.indicies.length;
+        $scope.index = "";
+
+        $scope.survey.formSetting.indicies.push(addingIndex);
+      }
+
+      $scope.removeIndex = function($index){
+        $scope.survey.formSetting.indicies.splice($index, 1);
+      }
+
       $scope.create = function(survey){
         // Form Validation - empty form should not be submitted
-        if(!$scope.survey.title || $scope.survey.title === '') { return; }
+        // if(!$scope.survey.title || $scope.survey.title === '') { return; }
 
         // POST Request to create a survey
         $http.post("http://localhost:3000/api/surveys", survey).
           success(function(data){
-            console.log("success")
-
+            console.log("success");
             // after a survey is successfully created,
             // title user has entered, should be removed
             $scope.survey = {};
+            $scope.survey.formSetting = {
+              nations: [],
+              categories: [],
+              indicies: []
+            };
           }).
           error(function(data){
-            console.log("error")
+            console.log("error");
           });
       }
     }

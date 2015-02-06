@@ -1,6 +1,47 @@
-<h1>surveyNewPage</h1>
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <form ng-submit="create(survey)">
+        	Title:
+            <input type="text" ng-model="survey.title" />
+          Description:
+            <textarea name="" id="" ng-model="survey.description" cols="30" rows="10"></textarea>
+          Nation:
+          <!-- Nations -->
+          <div class="edit-box">
+          	<input type="text" ng-model="nation">
+           	<button class="btn btn-pri btn-sm" ng-click="addNation($event, nation)">Add Nation</button>
+           	<ul>
+           		<li ng-repeat="nation in survey.formSetting.nations">
+           			{{ nation.name }}
+           			<span ng-click="removeNation($index)">x</span>
+           		</li> 
+           	</ul>
+          </div>
+          <div class="edit-box">
+          	<input type="text" ng-model="category">
+           	<button class="btn btn-pri btn-sm" ng-click="addCategory($event, category)">Add Category</button>
+           	<ul>
+           		<li ng-repeat="category in survey.formSetting.categories">
+           			{{ category.name }}
+           			<span ng-click="removeCategory($index)">x</span>
+           		</li> 
+           	</ul>
+          </div>
+          <div class="edit-box">
+          	<input type="text" ng-model="index">
+           	<button class="btn btn-pri btn-sm" ng-click="addIndex($event, index)">Add Index</button>
+           	<ul>
+           		<li ng-repeat="index in survey.formSetting.indicies">
+           			{{ index.name }}
+           			<span ng-click="removeIndex($index)">x</span>
+           		</li> 
+           	</ul>
+          </div>
+					<!-- Categories -->
+					<!-- Indexs -->
+    				<input type="submit"/>
+    			</form>
+    </div>
+</div>
 
-<form novalidate>
-  Title : <input type="text" ng-model="survey.title" /><br />
-  <input type="submit" ng-disabled="!survey.title" ng-click="create(survey)"/>
-</form>
+<h1>surveyNewPage</h1>
