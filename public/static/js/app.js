@@ -1,5 +1,11 @@
 var app = angular.module("GAP", ["ngRoute"]);
 
+// for testing purpost, set authentication header
+// must be removed before pull request
+app.config(['$httpProvider', function($httpProvider) {
+    $httpProvider.defaults.headers.common['Authorization'] = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NGQyNzA4YTk4NzRhZGNmNDA2N2ZhMDkiLCJ1c2VybmFtZSI6InN5bnRheGZpc2giLCJwYXNzd29yZCI6InRlc3QifQ.vXTcAYsvAQFHKrZ1gBYYlrFXMijZjP0OvcKii4BcHl0";
+}])
+
 app.config(["$routeProvider", "$locationProvider",
     function($routeProvider, $locationProvider) {
         $routeProvider.when('/', {
@@ -56,25 +62,75 @@ app.controller("signinPageController", ["$scope", "$http",
 
 app.controller("surveysPageController", ["$scope", "$http",
 	function($scope, $http){
-
+    $http.get("http://localhost:3000/api/surveys/").
+      success(function(data){
+        $scope.surveys = data.surveyList;
+      }).
+      error(function(data){
+        console.log("error")
+      });
 	}
 ]);
 
 app.controller("surveyNewPageController", ["$scope", "$http", "$routeParams",
     function($scope, $http, $routeParams){
-        console.log("survey-new => this is id", $routeParams.id);
+      $scope.survey = {};
+
+      $scope.create = function(survey){
+        // Form Validation - empty form should not be submitted
+        if(!$scope.survey.title || $scope.survey.title === '') { return; }
+
+        // POST Request to create a survey
+        $http.post("http://localhost:3000/api/surveys", survey).
+          success(function(data){
+            console.log("success")
+
+            // after a survey is successfully created,
+            // title user has entered, should be removed
+            $scope.survey = {};
+          }).
+          error(function(data){
+            console.log("error")
+          });
+      }
     }
 ]);
 
 app.controller("surveyEditPageController", ["$scope", "$http", "$routeParams",
     function($scope, $http, $routeParams){
-        console.log("survey-edit => this is id", $routeParams.id);
+      // http://localhost:3000/api/surveys/54d1374ea0f09231943ee5d2
+      $http.get("http://localhost:3000/api/surveys/" + $routeParams.id).
+        success(function(data){
+          $scope.survey = data.survey;
+        }).
+        error(function(data){
+          console.log("error");
+        });
+
+      $scope.update = function(survey){
+        // PUT Request to update a survey
+        $http.put("http://localhost:3000/api/surveys/" + $routeParams.id, survey).
+          success(function(data){
+            console.log("success")
+            // should implement event after successfully updated
+          }).
+          error(function(data){
+            console.log("error")
+          });
+      }
     }
 ]);
 
 app.controller("surveyViewPageController", ["$scope", "$http", "$routeParams", 
     function($scope, $http, $routeParams){
-        console.log("survey-view => this is id", $routeParams.id);
+      // http://localhost:3000/api/surveys/54d1374ea0f09231943ee5d2
+      $http.get("http://localhost:3000/api/surveys/" + $routeParams.id).
+        success(function(data){
+          $scope.survey = data.survey;
+        }).
+        error(function(data){
+          console.log("error")
+        });
     }
 ]);
 
