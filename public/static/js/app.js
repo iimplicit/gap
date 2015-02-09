@@ -75,15 +75,19 @@ app.controller("surveysPageController", ["$scope", "$http",
     }
 ]);
 
-app.controller("surveyNewPageController", ["$scope", "$http", "$routeParams", "ngTableParams", "$sce",
-    function($scope, $http, $routeParams, ngTableParams, $sce) {
-        $scope.survey = {};
-
-        $scope.survey.formSetting = {
+app.controller("surveyNewPageController", ["$scope", "$http", "$routeParams",
+    function($scope, $http, $routeParams) {
+        $scope.survey = {
+          formSetting: {
             nations: [],
             categories: [],
             indicies: []
-        }
+          },
+          items: {
+            demographic: [],
+            content: []
+          }
+        };
 
         $scope.addNation = function($event, nation) {
             $event.preventDefault();
@@ -150,7 +154,6 @@ app.controller("surveyNewPageController", ["$scope", "$http", "$routeParams", "n
         }
 
         $scope.selectedInputType = "";
-        $scope.survey.items = [];
 
         $scope.inputTypes = [{
             value: "text",
@@ -175,14 +178,48 @@ app.controller("surveyNewPageController", ["$scope", "$http", "$routeParams", "n
             title: "checkbox"
         }];
 
+        $scope.fieldTypes = [{
+            value: "grid",
+            title: "grid"
+        }];
+
+        $scope.selectedfieldType = $scope.fieldTypes[0];
+
+        $scope.addFieldType = function(selectedFieldType) {
+            var addingItem = {
+                type: selectedFieldType,
+                scenario: "",
+                questions: [
+                  {
+                    question: "",
+                    responses: [
+                      {
+                        name: "barely effective",
+                        scores: []
+                      },
+                      {
+                        name: "soso effective",
+                        scores: []
+                      },
+                      {
+                        name: "very effective",
+                        scores: []
+                      },
+                    ],
+                    required: false
+                  }
+                ],
+            };
+            $scope.survey.items.content.push(addingItem);
+        }
+
         $scope.addQuestion = function(selectedInputType) {
             var addingItem = {
-                section: "demographic",
                 type: selectedInputType,
                 options: [],
                 required: false
             };
-            $scope.survey.items.push(addingItem);
+            $scope.survey.items.demographic.push(addingItem);
         }
 
         $scope.addOption = function(addingOption, $index, $event) {
