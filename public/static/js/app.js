@@ -78,15 +78,15 @@ app.controller("surveysPageController", ["$scope", "$http",
 app.controller("surveyNewPageController", ["$scope", "$http", "$routeParams",
     function($scope, $http, $routeParams) {
         $scope.survey = {
-          formSetting: {
-            nations: [],
-            categories: [],
-            indicies: []
-          },
-          items: {
-            demographic: [],
-            content: []
-          }
+            formSetting: {
+                nations: [],
+                categories: [],
+                indicies: []
+            },
+            items: {
+                demographic: [],
+                content: []
+            }
         };
 
         $scope.addNation = function($event, nation) {
@@ -189,31 +189,65 @@ app.controller("surveyNewPageController", ["$scope", "$http", "$routeParams",
             var addingItem = {
                 type: selectedFieldType,
                 scenario: "",
-                questions: [
-                  {
+                questions: [{
                     question: "",
-                    responses: [
-                      {
+                    responses: [{
                         name: "barely effective",
-                        scores: []
-                      },
-                      {
+                        scores: {}
+                    }, {
                         name: "soso effective",
-                        scores: []
-                      },
-                      {
+                        scores: {}
+                    }, {
                         name: "very effective",
-                        scores: []
-                      },
-                    ],
+                        scores: {}
+                    }, ],
                     required: false
-                  }
-                ],
+                }],
             };
             $scope.survey.items.content.push(addingItem);
         }
 
-        $scope.addQuestion = function(selectedInputType) {
+        $scope.addResponse = function(question) {
+            var addingResponse = {
+                name: "",
+                scores: {}
+            };
+            question.responses.push(addingResponse);
+        }
+
+        $scope.removeResponse = function(question, index) {
+            question.responses.splice(index, 1);
+        }
+
+        // add receives parent scope object
+        $scope.addQuestion = function(item) {
+            var addingQuestion = {
+                question: "",
+                responses: [{
+                    name: "barely effective",
+                    scores: {}
+                }, {
+                    name: "soso effective",
+                    scores: {}
+                }, {
+                    name: "very effective",
+                    scores: {}
+                }, ],
+                required: false
+            };
+            item.questions.push(addingQuestion);
+        }
+
+        // remove receives parent scope object and parent scope object's $index
+        $scope.removeQuestion = function(item, $index) {
+            item.questions.splice($index, 1);
+        }
+
+        $scope.addScore = function(response, indexName, score) {
+            response.scores[indexName] = score;
+        }
+
+        $scope.addDemoQuestion = function(selectedInputType) {
             var addingItem = {
                 type: selectedInputType,
                 options: [],
