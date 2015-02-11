@@ -4,7 +4,7 @@
 
 (function() {
     'use strict';
-    var util = require('../lib/util');
+    var exportJson2Csv = require('../lib/util').exportJson2Csv;
     var expect = require('chai').expect;
     var fs = require('fs');
     var async = require('async');
@@ -14,26 +14,28 @@
         require('./testcase/in_csv_01')
     ];
     var out_csv_path = [
-        './testcase/out_csv_01.csv'
+        'test/testcase/out_csv_01.csv'
     ];
     var out_csv = [];
     
     async.times(out_csv_path.length, function(n, next) {
         fs.readFile(out_csv_path[n], function(err, file) {
-            out_csv.push(file);
+            out_csv.push(file.toString());
             next();
         });
     },function done(error, results) {
 
     });
-    
 
-    describe('Testing exportCsv', function() {
+
+    describe('Test exportJson2Csv', function() {
         it('succeed export csv', function(done) {
             var testNumber = 0;
-            util.exportCsv(in_csv[testNumber], ['title', 'description', 'itmes'], function(err, csv){
+
+            exportJson2Csv(in_csv[testNumber], ['title', 'description', 'name', 'scenario', 'test'], function(err, csv){
                 expect(err).to.be.a('null');
-                expect(csv).to.eql(out_csv[testNumber]);
+                expect(csv).to.be.a(out_csv[testNumber]);
+
                 done();
             });
         });
