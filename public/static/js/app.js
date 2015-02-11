@@ -189,6 +189,8 @@ app.controller("surveyNewPageController", ["$scope", "$http", "$routeParams",
             var addingItem = {
                 type: selectedFieldType,
                 scenario: "",
+                nation: "",
+                category: "",
                 questions: [{
                     question: "",
                     responses: [{
@@ -205,6 +207,10 @@ app.controller("surveyNewPageController", ["$scope", "$http", "$routeParams",
                 }],
             };
             $scope.survey.items.content.push(addingItem);
+        }
+
+        $scope.removeField = function($index){
+          $scope.survey.items.content.splice($index, 1);
         }
 
         $scope.addResponse = function(question) {
