@@ -5,6 +5,8 @@ var converter = require('json2csv');
 var async = require('async');
 var _ = require('underscore');
 var mongodb = require('mongodb');
+var exportJson2Csv = require('../../lib/util').exportJson2Csv;
+
 
 //view all entries in a collection
 exports.viewCollection = function(req, res, next) {
@@ -117,55 +119,10 @@ exports.exportCollection = function(req, res, next) {
     res.setHeader('Content-disposition', 'attachment; filename=' + req.collectionName + '.csv');
     res.setHeader('Content-type', 'text/csv');
 
-    var values = [];
-
-    list.forEach(function(survey) {
-      var body = {}
-      for( var i = 0; i < fields.length; i++ ) {
-        var fieldName = fields[i];
-        var field = survey[fieldName];
-
-        if( _.isArray(field) ) {
-
-        } else if(_.isObject(field)) {
-          body = _.extend(body, field);
-        } else {
-          body[fieldName] = field;
-        }
-      }
-
+    exportJson2Csv(list, fields, function(err, csv) {
+      res.write(csv);
+      res.end();
     });
-
-    //var values = [];
-    //var body = {};
-    //async.times(items.length, function(n, next) {
-    //  for( var i = 0; i < fields.length; i++ ) {
-    //    var fieldName = fields[i];
-    //    var field = (items[n])[fieldName];
-    //
-    //    body[fieldName] = field;
-    //
-    //  }
-    //
-    //  values.push(body);
-    //
-    //  //console.log(values);
-    //  //values = items[n];
-    //  console.log(values);
-    //  console.log(body);
-    //
-    //
-    //  next();
-    //},function done(error, results) {
-    //  //converter(body.items, function(err, csv) {
-    //  //  res.write(csv);
-    //  //  res.end();
-    //  //});
-    //  //converter({data: body.items, fields: ['question', 'scenario']}, function(err, csv) {
-    //  //  console.log(csv);
-    //  //});
-    //});
-
 
   });
 };
