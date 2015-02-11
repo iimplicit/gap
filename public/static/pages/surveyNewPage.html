@@ -110,6 +110,7 @@
           <div>
             <h3>{{ item.type }} Question</h3>
             <textarea rows="8" cols="40" ng-model="item.scenario"></textarea>
+            <button type="button" class="btn btn-default btn-danger" ng-click="removeField($index)">Remove Field</button>
             <button type="button" class="btn btn-default btn-primary" ng-click="addQuestion(item)">Add Question</button>
             <div ng-repeat="question in item.questions" class="well">
               <table>
