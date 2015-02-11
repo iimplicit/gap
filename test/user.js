@@ -1,8 +1,11 @@
 /**
  * Created by syntaxfish on 15. 2. 3..
  */
-var mocha = require('mocha');
 
-suite('', function() {
+(function() {
+    'use strict';
+    var app = require('../app');
+    var request = require('supertest');
 
-});
+
+})();
