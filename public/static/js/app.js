@@ -23,7 +23,7 @@ app.config(["$routeProvider", "$locationProvider",
         }).when('/surveys', {
             templateUrl: 'static/pages/surveysPage.html',
             controller: 'surveysPageController'
-        }).when('/survey/:id/new', {
+        }).when('/survey/new', {
             templateUrl: 'static/pages/surveyNewPage.html',
             controller: 'surveyNewPageController'
         }).when('/survey/:id/edit', {
@@ -39,9 +39,9 @@ app.config(["$routeProvider", "$locationProvider",
             redirectTo: '/'
         });
 
-        if (window.history && window.history.pushState) {
-            $locationProvider.html5Mode(true);
-        }
+        // if (window.history && window.history.pushState) {
+        //     $locationProvider.html5Mode(true);
+        // }
     }
 ]);
 
