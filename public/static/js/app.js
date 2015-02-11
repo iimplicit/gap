@@ -189,6 +189,8 @@ app.controller("surveyNewPageController", ["$scope", "$http", "$routeParams",
             var addingItem = {
                 type: selectedFieldType,
                 scenario: "",
+                nation: "",
+                category: "",
                 questions: [{
                     question: "",
                     responses: [{

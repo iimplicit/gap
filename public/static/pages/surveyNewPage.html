@@ -110,6 +110,10 @@
           <div>
             <h3>{{ item.type }} Question</h3>
             <textarea rows="8" cols="40" ng-model="item.scenario"></textarea>
+
+            nation : <select ng-options="nation.name for nation in survey.formSetting.nations track by nation.name" ng-model="item.nation"></select>
+            category : <select ng-options="category.name for category in survey.formSetting.categories track by category.name" ng-model="item.category"></select>
+
             <button type="button" class="btn btn-default btn-danger" ng-click="removeField($index)">Remove Field</button>
             <button type="button" class="btn btn-default btn-primary" ng-click="addQuestion(item)">Add Question</button>
             <div ng-repeat="question in item.questions" class="well">
