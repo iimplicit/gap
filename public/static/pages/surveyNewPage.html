@@ -1,21 +1,26 @@
-<h1>surveyNewPage</h1>
 <div class="row">
+    <h1>Create your new Survey</h1>
+    <div class="gap-callout gap-callout-info" id="">
+        <h4>You can create your own customizable survey</h4>
+        <p>Put down everthing from survey basic info, general dempgrahpic questions, to highly customizable grid-type questions that can assess your applicant's overall global competency with our nation, category, and index based scoring system.</p>
+    </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 well">
-        <h3>Basic Survey Info</h3>
         <form ng-submit="create(survey)">
             <!-- Survey Basic Info -->
             <div class="row">
-                <label for="">Title:</label>
-                <input type="text" ng-model="survey.title" />
+                <label for="">Survey Title:</label>
+                <input type="text" class="form-control" ng-model="survey.title" placeholder="Survey Title">
+                <br>
             </div>
             <div class="row">
-                <label for="">Description:</label>
-                <textarea name="" id="" ng-model="survey.description" cols="30" rows="10"></textarea>
+                <label for="">Survey Description:</label>
+                <textarea class="form-control" ng-model="survey.description" rows="3" placeholder="Survey Description"></textarea>
+                <br>
             </div>
             <!-- Nations -->
             <div class="edit-box row">
                 <label for="">Nation:</label>
-                <input type="text" ng-model="nation">
+                <input type="text" placeholder="Nation" ng-model="nation">
                 <button class="btn btn-pri btn-sm" ng-click="addNation($event, nation)">Add Nation</button>
                 <ul>
                     <li ng-repeat="nation in survey.formSetting.nations">
@@ -27,7 +32,7 @@
             <!-- Categories -->
             <div class="row edit-box">
                 <label for="">Category:</label>
-                <input type="text" ng-model="category">
+                <input type="text" placeholder="Category" ng-model="category">
                 <button class="btn btn-pri btn-sm" ng-click="addCategory($event, category)">Add Category</button>
                 <ul>
                     <li ng-repeat="category in survey.formSetting.categories">
@@ -39,7 +44,7 @@
             <!-- Indexs -->
             <div class="row edit-box">
                 <label for="">Index:</label>
-                <input type="text" ng-model="index">
+                <input type="text" placeholder="Index" ng-model="index">
                 <button class="btn btn-pri btn-sm" ng-click="addIndex($event, index)">Add Index</button>
                 <ul>
                     <li ng-repeat="index in survey.formSetting.indicies">
@@ -107,38 +112,49 @@
         <select ng-options="fieldType.value for fieldType in fieldTypes track by fieldType.value" ng-model="selectedFieldType"></select>
         <button class="" ng-click="addFieldType(selectedFieldType.value)">Add Field</button>
         <div ng-repeat="item in survey.items.content" class="well">
-          <div>
-            <h3>{{ item.type }} Question</h3>
-            <textarea rows="8" cols="40" ng-model="item.scenario"></textarea>
-            <button type="button" class="btn btn-default btn-primary" ng-click="addQuestion(item)">Add Question</button>
-            <div ng-repeat="question in item.questions" class="well">
-              <table>
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th ng-repeat="response in question.responses"><input type="text" ng-model="response.name"><span class="label label-danger" ng-click="removeResponse(question, $index)">x</span></th>
-                    <th><input type="text" ng-model="new" ng-click="addResponse(question)"></th>
-                  </tr>
-                 </thead>
-                 <tbody>
-                   <tr>
-                     <td><input type="text" name="" id="" value="" ng-model="question.question" /></td>
-                     <td ng-repeat="response in question.responses"><input type="radio" name="" id="" value="" /></td>
-                   </tr>
-                   <tr ng-repeat="index in survey.formSetting.indicies">
-                     <td>{{ index.name }}</td>
-                     <td ng-repeat="response in question.responses"><input type="number" ng-model="score" ng-change="addScore(response, index.name, score)"></td>
-                   </tr>
-                   <tr>
-                       <td><input type="checkbox" ng-model="question.required">Required</td>
-                   </tr>
-                 </tbody>
-              </table>
-              <button type="button" class="btn btn-default btn-primary" ng-click="removeQuestion(item, $index)">Remove Question</button>
+            <div>
+                <h3>{{ item.type }} Question</h3>
+                <textarea rows="8" cols="40" ng-model="item.scenario"></textarea>
+                <button type="button" class="btn btn-default btn-primary" ng-click="addQuestion(item)">Add Question</button>
+                <div ng-repeat="question in item.questions" class="well">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th ng-repeat="response in question.responses">
+                                    <input type="text" ng-model="response.name"><span class="label label-danger" ng-click="removeResponse(question, $index)">x</span>
+                                </th>
+                                <th>
+                                    <input type="text" ng-model="new" ng-click="addResponse(question)">
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="text" name="" id="" value="" ng-model="question.question" />
+                                </td>
+                                <td ng-repeat="response in question.responses">
+                                    <input type="radio" name="" id="" value="" />
+                                </td>
+                            </tr>
+                            <tr ng-repeat="index in survey.formSetting.indicies">
+                                <td>{{ index.name }}</td>
+                                <td ng-repeat="response in question.responses">
+                                    <input type="number" ng-model="score" ng-change="addScore(response, index.name, score)">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" ng-model="question.required">Required</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" class="btn btn-default btn-primary" ng-click="removeQuestion(item, $index)">Remove Question</button>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
 </div>
 <div class="row">
     <div class="btn-group btn-group-justified" role="group" aria-label="">
