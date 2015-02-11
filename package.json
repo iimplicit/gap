@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www & node ./admin/app"
+    "start": "node ./bin/www"
+    "start_admin": "node ./admin/app",
+    "start_all": "node ./bin/www & node ./admin/app"
   },
   "dependencies": {
     "async": "^0.9.0",
