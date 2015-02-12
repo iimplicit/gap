@@ -105,5 +105,5 @@ exports.update = function(req, res) {
 function _createToken(user) {
     if( user.password ) { delete user.password; }
 
-    return jwt.sign(user, secret, { expiresInMinutes: 1 }); 
+    return jwt.sign(user, secret, { expiresInMinutes: 1 });
 };

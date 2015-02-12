@@ -8,6 +8,9 @@ var async = require('async');
 var sendError = require('../lib/util').sendError;
 var decodeToken = require('../lib/util').decodeToken;
 var existUser= require('../lib/util').existUser;
+var exportJson2Csv = require('../lib/util').exportJson2Csv;
+
+var config = require('../config');
 
 
 
@@ -130,6 +133,33 @@ exports.copy = function(req, res) {
             if( !result ) { return sendError(res, 'INVALID_QUERY')}
 
             res.json({success: true, _id: result._id, createdAt: result.createdAt, updatedAt: result.updatedAt});
+        });
+    });
+};
+
+exports.exportData = function(req, res) {
+    var decodedToken = req.decodeToken;
+    var surveyId = req.params.id;
+    var content_type = req.get('Accept');
+
+    if( content_type !== 'text/csv' ) { return sendError(res, 'NOT_ACCEPTABLE'); }
+
+    existUser(decodedToken, function(err, user) {
+        if (err) { return sendError(res, 'INVALID_TOKEN'); }
+        var Survey = mongoose.model('Survey');
+
+        Survey.findOne({_id: surveyId, userId: decodedToken._id}, function(err, survey) {
+            res.setHeader('Content-disposition', 'attachment; filename=survey.csv');
+            res.setHeader('Content-type', 'text/csv');
+
+            survey = _.isArray(survey) ?
+                survey :
+                [survey];
+
+            exportJson2Csv(survey, config.csvFormat, function(err, csv) {
+                res.write(csv);
+                res.end();
+            });
         });
     });
 };
