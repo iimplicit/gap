@@ -51,11 +51,8 @@ exports.login = function(req, res) {
 };
 
 exports.delete = function(req, res) {
-    var token = req.get('Authorization');
-    if( !token ) { return sendError(res, 'TOKEN_MISSING'); }
-
+    var user = req.decodeToken;
     var User = mongoose.model('User');
-    var user = decodeToken(token);
 
     User.remove({_id: user._id}, function(err, result) {
         if( err ) { return sendError(res, err); }
@@ -83,10 +80,8 @@ exports.read = function(req, res) {
 };
 
 exports.update = function(req, res) {
-    var token = req.get('Authorization');
-    if( !token ) { return sendError(res, 'TOKEN_MISSING'); }
+    var user = req.decodeToken;
 
-    var user = decodeToken(token);
     var User = mongoose.model('User');
     var body = req.body;
 
@@ -110,5 +105,5 @@ exports.update = function(req, res) {
 function _createToken(user) {
     if( user.password ) { delete user.password; }
 
-    return jwt.sign(user, secret, { expiresInMinutes: 1 }); 
+    return jwt.sign(user, secret, { expiresInMinutes: 1 });
 };
