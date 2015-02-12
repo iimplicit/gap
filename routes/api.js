@@ -3,6 +3,7 @@ var router = express.Router();
 
 var survey = require('../controllers/survey');
 var user = require('../controllers/user');
+var surveyReply = require('../controllers/surveyReply');
 
 
 /**
@@ -15,6 +16,8 @@ router.get('/surveys/:id', survey.read);
 
 router.put('/surveys/:id', survey.update);
 router.delete('/surveys/:id', survey.delete);
+
+router.post('/surveys/submit/:id', surveyReply.submit);
 
 /**
  * User CRUD
