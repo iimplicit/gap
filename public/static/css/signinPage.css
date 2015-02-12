@@ -18,7 +18,7 @@
       margin: 1px 0;
       box-sizing: border-box;
       display: inline-block; }
-  #signin-form > form > div.email-input {
+  #signin-form > form > div.text-input {
     display: block;
     margin: 6px auto;
     height: 54px;
@@ -27,7 +27,7 @@
     vertical-align: top;
     font-size: 0;
     border-radius: 5px; }
-    #signin-form > form > div.email-input > div.thumbnail-image {
+    #signin-form > form > div.text-input > div.thumbnail-image {
       background-image: url("../img/email.png");
       background-repeat: no-repeat;
       background-size: contain;
@@ -38,7 +38,7 @@
       margin: 1px 0;
       box-sizing: border-box;
       display: inline-block; }
-    #signin-form > form > div.email-input > input {
+    #signin-form > form > div.text-input > input {
       background-color: #46dbc2;
       border: 0;
       color: #fff;
@@ -48,7 +48,7 @@
       vertical-align: top;
       margin: 1px 0;
       font-size: 20px; }
-      #signin-form > form > div.email-input > input:focus {
+      #signin-form > form > div.text-input > input:focus {
         outline: none; }
   #signin-form > form > div.password-input {
     display: block;
