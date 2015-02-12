@@ -218,6 +218,7 @@
                 success(function(data) {
                     console.log("success")
                     // should implement event after successfully updated
+                    $scope.survey = $scope.initSurvey();
                 }).
                 error(function(data) {
                     console.log("error")
@@ -280,23 +281,6 @@
 
             $scope.removeIndex = function($index) {
                 $scope.survey.formSetting.indicies.splice($index, 1);
-            }
-
-            $scope.create = function(survey) {
-                // Form Validation - empty form should not be submitted
-                // if(!$scope.survey.title || $scope.survey.title === '') { return; }
-
-                // POST Request to create a survey
-                $http.post("http://localhost:3000/api/surveys", survey).
-                success(function(data) {
-                    console.log("success");
-                    // after a survey is successfully created,
-                    // title user has entered, should be removed
-                    $scope.survey = $scope.initSurvey();
-                }).
-                error(function(data) {
-                    console.log("error");
-                });
             }
 
             $scope.selectedInputType = "";
