@@ -18,6 +18,7 @@ router.get('/surveys/:id', Authorization.token, survey.read);
 router.put('/surveys/:id', Authorization.token, survey.update);
 router.delete('/surveys/:id', Authorization.token, survey.delete);
 
+router.post('/surveys/:id/copy', Authorization.token, survey.copy);
 /**
  * User CRUD
  * **/
