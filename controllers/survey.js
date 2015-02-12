@@ -12,11 +12,8 @@ var existUser= require('../lib/util').existUser;
 
 
 exports.create = function(req, res) {
-    var token = req.get('Authorization');
-    if( !token ) { return sendError(res, 'TOKEN_MISSING'); }
-
+    var decodedToken = req.decodeToken;
     var body = req.body;
-    var decodedToken = decodeToken(token);
 
     if( _.isEmpty(body) ) { return sendError(res, 'JSON_MISSING'); }
 
@@ -35,11 +32,8 @@ exports.create = function(req, res) {
 };
 
 exports.readList = function(req, res) {
-    var token = req.get('Authorization');
-    if( !token ) { return sendError(res, 'TOKEN_MISSING'); }
-
+    var decodedToken = req.decodeToken;
     var Survey = mongoose.model('Survey');
-    var decodedToken = decodeToken(token);
 
     existUser(decodedToken, function(err, user){
         if(err) { return sendError(res, 'INVALID_TOKEN'); }
@@ -54,12 +48,9 @@ exports.readList = function(req, res) {
 };
 
 exports.read = function(req, res) {
-    var token = req.get('Authorization');
-    if( !token ) { return sendError(res, 'TOKEN_MISSING'); }
-
+    var decodedToken = req.decodeToken;
     var Survey = mongoose.model('Survey');
     var id = req.params.id;
-    var decodedToken = decodeToken(token);
 
     Survey.findOne({_id: id})
         .exec(function(err, survey) {
@@ -72,12 +63,10 @@ exports.read = function(req, res) {
 };
 
 exports.update = function(req, res) {
-    var token = req.get('Authorization');
-    if( !token ) { return sendError(res, 'TOKEN_MISSING'); }
-
+    var decodedToken = req.decodeToken;
     var body = req.body;
     var surveyId = req.params.id;
-    var decodedToken = decodeToken(token);
+
 
     body.updatedAt = Date.now();
 
@@ -95,11 +84,8 @@ exports.update = function(req, res) {
 };
 
 exports.delete = function(req, res) {
-    var token = req.get('Authorization');
-    if( !token ) { return sendError(res, 'TOKEN_MISSING'); }
-
+    var decodedToken = req.decodeToken;
     var surveyId = req.params.id;
-    var decodedToken = decodeToken(token);
 
     existUser(decodedToken, function(err, user) {
         if (err) { return sendError(res, 'INVALID_TOKEN'); }
