@@ -218,10 +218,185 @@
                 success(function(data) {
                     console.log("success")
                     // should implement event after successfully updated
+                    $scope.survey = $scope.initSurvey();
                 }).
                 error(function(data) {
                     console.log("error")
                 });
+            }
+
+            $scope.initSurvey = function(){
+              emptySurvey = {
+                  formSetting: {
+                      nations: [],
+                      categories: [],
+                      indicies: []
+                  },
+                  items: {
+                      demographic: [],
+                      content: []
+                  }
+              };
+
+              return emptySurvey;
+            }
+
+            $scope.addNation = function($event, nation) {
+                $event.preventDefault();
+                var addingNation = {};
+                addingNation.name = nation;
+                addingNation.index = $scope.survey.formSetting.nations.length;
+                $scope.nation = "";
+
+                $scope.survey.formSetting.nations.push(addingNation);
+            }
+
+            $scope.removeNation = function($index) {
+                $scope.survey.formSetting.nations.splice($index, 1);
+            }
+
+            $scope.addCategory = function($event, category) {
+                $event.preventDefault();
+                var addingCategory = {};
+                addingCategory.name = category;
+                addingCategory.index = $scope.survey.formSetting.categories.length;
+                $scope.category = "";
+
+                $scope.survey.formSetting.categories.push(addingCategory);
+            }
+
+            $scope.removeCategory = function($index) {
+                $scope.survey.formSetting.categories.splice($index, 1);
+            }
+
+            $scope.addIndex = function($event, index) {
+                $event.preventDefault();
+                var addingIndex = {};
+                addingIndex.name = index;
+                addingIndex.index = $scope.survey.formSetting.indicies.length;
+                $scope.index = "";
+
+                $scope.survey.formSetting.indicies.push(addingIndex);
+            }
+
+            $scope.removeIndex = function($index) {
+                $scope.survey.formSetting.indicies.splice($index, 1);
+            }
+
+            $scope.selectedInputType = "";
+
+            $scope.inputTypes = [{
+                value: "text",
+                title: "input"
+            }, {
+                value: "email",
+                title: "input[email]"
+            }, {
+                value: "url",
+                title: "input[url]"
+            }, {
+                value: "date",
+                title: "input[date]"
+            }, {
+                value: "textarea",
+                title: "textarea"
+            }, {
+                value: "select",
+                title: "select"
+            }, {
+                value: "checkbox",
+                title: "checkbox"
+            }];
+
+            $scope.fieldTypes = [{
+                value: "grid",
+                title: "grid"
+            }];
+
+            $scope.selectedfieldType = $scope.fieldTypes[0];
+
+            $scope.addFieldType = function(selectedFieldType) {
+                var addingItem = {
+                    type: selectedFieldType,
+                    scenario: "",
+                    questions: [{
+                        question: "",
+                        responses: [{
+                            name: "barely effective",
+                            scores: {}
+                        }, {
+                            name: "soso effective",
+                            scores: {}
+                        }, {
+                            name: "very effective",
+                            scores: {}
+                        }, ],
+                        required: false
+                    }],
+                };
+                $scope.survey.items.content.push(addingItem);
+            }
+
+            $scope.addResponse = function(question) {
+                var addingResponse = {
+                    name: "",
+                    scores: {}
+                };
+                question.responses.push(addingResponse);
+            }
+
+            $scope.removeResponse = function(question, index) {
+                question.responses.splice(index, 1);
+            }
+
+            // add receives parent scope object
+            $scope.addQuestion = function(item) {
+                var addingQuestion = {
+                    question: "",
+                    responses: [{
+                        name: "barely effective",
+                        scores: {}
+                    }, {
+                        name: "soso effective",
+                        scores: {}
+                    }, {
+                        name: "very effective",
+                        scores: {}
+                    }, ],
+                    required: false
+                };
+                item.questions.push(addingQuestion);
+            }
+
+            $scope.removeField = function($index) {
+                $scope.survey.items.content.splice($index, 1);
+            }
+
+            // remove receives parent scope object and parent scope object's $index
+            $scope.removeQuestion = function(item, $index) {
+                item.questions.splice($index, 1);
+            }
+
+            $scope.addScore = function(response, indexName, score) {
+                response.scores[indexName] = score;
+            }
+
+            $scope.addDemoQuestion = function(selectedInputType) {
+                var addingItem = {
+                    type: selectedInputType,
+                    options: [],
+                    required: false
+                };
+                $scope.survey.items.demographic.push(addingItem);
+            }
+
+            $scope.addOption = function(addingOption, $index, $event) {
+                $event.preventDefault();
+                $scope.survey.items.demographic[$index].options.push(addingOption);
+            }
+
+            $scope.submit = function() {
+                console.log($scope.survey);
             }
         }
     ]);
