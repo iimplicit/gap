@@ -4,5 +4,6 @@
   },
   "jwt": {
     "secret": "jwtscrethellowrold123"
-  }
+  },
+  "csvFormat": ["title"]
 }
