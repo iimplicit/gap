@@ -12,11 +12,8 @@ var existUser= require('../lib/util').existUser;
 
 
 exports.create = function(req, res) {
-    var token = req.get('Authorization');
-    if( !token ) { return sendError(res, 'TOKEN_MISSING'); }
-
+    var decodedToken = req.decodeToken;
     var body = req.body;
-    var decodedToken = decodeToken(token);
 
     if( _.isEmpty(body) ) { return sendError(res, 'JSON_MISSING'); }
 
@@ -29,17 +26,14 @@ exports.create = function(req, res) {
         Survey.create(body, function(err, survey) {
             if( err ) { return callback(err, survey); }
 
-            res.json({success: true, _id: survey._id});
+            res.json({success: true, _id: survey._id, createdAt: survey.createdAt, updatedAt: survey.updatedAt});
         });
     });
 };
 
 exports.readList = function(req, res) {
-    var token = req.get('Authorization');
-    if( !token ) { return sendError(res, 'TOKEN_MISSING'); }
-
+    var decodedToken = req.decodeToken;
     var Survey = mongoose.model('Survey');
-    var decodedToken = decodeToken(token);
 
     existUser(decodedToken, function(err, user){
         if(err) { return sendError(res, 'INVALID_TOKEN'); }
@@ -54,12 +48,9 @@ exports.readList = function(req, res) {
 };
 
 exports.read = function(req, res) {
-    var token = req.get('Authorization');
-    if( !token ) { return sendError(res, 'TOKEN_MISSING'); }
-
+    var decodedToken = req.decodeToken;
     var Survey = mongoose.model('Survey');
     var id = req.params.id;
-    var decodedToken = decodeToken(token);
 
     Survey.findOne({_id: id})
         .exec(function(err, survey) {
@@ -72,12 +63,9 @@ exports.read = function(req, res) {
 };
 
 exports.update = function(req, res) {
-    var token = req.get('Authorization');
-    if( !token ) { return sendError(res, 'TOKEN_MISSING'); }
-
+    var decodedToken = req.decodeToken;
     var body = req.body;
     var surveyId = req.params.id;
-    var decodedToken = decodeToken(token);
 
     body.updatedAt = Date.now();
 
@@ -89,17 +77,14 @@ exports.update = function(req, res) {
             if( err ) { return sendError(res, err); }
             if( result === 0 ) { return sendError(res, 'INVALID_QUERY'); }
 
-            res.json({success: true});
+            res.json({success: true, _id: surveyId, updatedAt: body.updatedAt});
         });
     });
 };
 
 exports.delete = function(req, res) {
-    var token = req.get('Authorization');
-    if( !token ) { return sendError(res, 'TOKEN_MISSING'); }
-
+    var decodedToken = req.decodeToken;
     var surveyId = req.params.id;
-    var decodedToken = decodeToken(token);
 
     existUser(decodedToken, function(err, user) {
         if (err) { return sendError(res, 'INVALID_TOKEN'); }
@@ -114,3 +99,37 @@ exports.delete = function(req, res) {
     });
 };
 
+exports.copy = function(req, res) {
+    var decodedToken = req.decodeToken;
+    var surveyId = req.params.id;
+
+    existUser(decodedToken, function(err, user) {
+        if (err) { return sendError(res, 'INVALID_TOKEN'); }
+        var Survey = mongoose.model('Survey');
+
+        async.waterfall([
+            function findSurvey(callback) {
+                Survey.findOne({_id: surveyId, userId: decodedToken._id}, function(err, survey) {
+                    if( err ) { return callback(err); }
+                    if( !survey ) { return callback('INVALID_QUERY'); }
+
+                    callback(err, survey);
+                });
+            },
+            function copySurvey(survey, callback) {
+                survey.createdAt = survey.updatedAt = Date.now();
+                survey._id = mongoose.Types.ObjectId();
+                survey.isNew = true; //<--------------------IMPORTANT
+                survey.save(function(err, result) {
+                    callback(err, result);
+                });
+
+            }
+        ], function done(error, result) {
+            if( error ) { return sendError(res, error); }
+            if( !result ) { return sendError(res, 'INVALID_QUERY')}
+
+            res.json({success: true, _id: result._id, createdAt: result.createdAt, updatedAt: result.updatedAt});
+        });
+    });
+};
