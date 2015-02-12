@@ -6,17 +6,23 @@
 
     app.controller("surveyNewPageController", ["$scope", "$http", "$routeParams",
         function($scope, $http, $routeParams) {
-            $scope.survey = {
-                formSetting: {
-                    nations: [],
-                    categories: [],
-                    indicies: []
-                },
-                items: {
-                    demographic: [],
-                    content: []
-                }
-            };
+            $scope.initSurvey = function(){
+              emptySurvey = {
+                  formSetting: {
+                      nations: [],
+                      categories: [],
+                      indicies: []
+                  },
+                  items: {
+                      demographic: [],
+                      content: []
+                  }
+              };
+
+              return emptySurvey;
+            }
+
+            $scope.survey = $scope.initSurvey();
 
             $scope.addNation = function($event, nation) {
                 $event.preventDefault();
@@ -70,12 +76,7 @@
                     console.log("success");
                     // after a survey is successfully created,
                     // title user has entered, should be removed
-                    $scope.survey = {};
-                    $scope.survey.formSetting = {
-                        nations: [],
-                        categories: [],
-                        indicies: []
-                    };
+                    $scope.survey = $scope.initSurvey();
                 }).
                 error(function(data) {
                     console.log("error");
