@@ -15,7 +15,7 @@
 </head>
 
 <body ng-app="GAP">
-    <div class="header navbar navbar-default navbar-static-top" ng-controller="navbarController as nav">
+    <header class="header navbar navbar-default navbar-static-top" ng-controller="navbarController as nav">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -59,7 +59,7 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </header>
 
     <ng-view></ng-view>
 
@@ -85,6 +85,16 @@
                 </div>
             </footer>
         </div> -->
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <p class="pull-right"><a href="#">Back to top</a>
+            </p>
+            <p>© 2014 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a>
+            </p>
+        </div>
+    </footer>
 
     <script src="./bower_components/jquery/dist/jquery.min.js"></script>
     <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
