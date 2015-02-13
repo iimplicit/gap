@@ -39,8 +39,8 @@
         }
     });
 
-    app.controller("surveysPageController", ["SurveyFactory", "$scope",
-        function(SurveyFactory, $scope) {
+    app.controller("surveysPageController", ["SurveyFactory", "$scope", "$window",
+        function(SurveyFactory, $scope, $window) {
             SurveyFactory.readSurveys().then(function(data) {
                 $scope.surveys = data.data.surveyList;
             }, function(response) {
