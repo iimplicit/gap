@@ -1,0 +1,37 @@
+{
+  "name": "survey",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "start_admin": "node ./admin/app",
+    "start_all": "node ./bin/www & node ./admin/app"
+  },
+  "dependencies": {
+    "async": "^0.9.0",
+    "basic-auth-connect": "^1.0.0",
+    "body-parser": "~1.0.0",
+    "cookie-parser": "~1.0.1",
+    "cors": "^2.5.3",
+    "debug": "~0.7.4",
+    "express": "~4.2.0",
+    "express-jwt": "^1.0.0",
+    "jade": "~1.3.0",
+    "json2csv": "^2.2.1",
+    "jsonwebtoken": "^3.2.2",
+    "mongoose": "^3.8.22",
+    "morgan": "~1.0.0",
+    "node-cache": "^1.1.0",
+    "passport": "^0.2.1",
+    "static-favicon": "~1.0.0",
+    "underscore": "^1.7.0"
+  },
+  "main": "app.js",
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "mocha": "^2.1.0",
+    "supertest": "^0.15.0"
+  }
+}

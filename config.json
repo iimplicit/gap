@@ -1,0 +1,9 @@
+{
+  "mongodb" : {
+    "dbURI": "mongodb://localhost/survey"
+  },
+  "jwt": {
+    "secret": "jwtscrethellowrold123"
+  },
+  "csvFormat": ["title"]
+}

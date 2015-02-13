@@ -1,0 +1,70 @@
+{
+  "OTHER_CAUSE": {
+    "status": 500,
+    "code": -1,
+    "message": "OTHER_CAUSE"
+  },
+  "ACCOUNT_ALREADY_LINKED": {
+    "status": 404,
+    "code": 0,
+    "message": "ACCOUNT_ALREADY_LINKED"
+  },
+  "PERMISSION_DENIED": {
+    "status": 404,
+    "code": 1,
+    "message": "PERMISSION_DENIED"
+  },
+  "NOT_ACCEPTABLE": {
+    "status": 406,
+    "code": 2,
+    "message": "NOT_ACCEPTABLE"
+  },
+
+  "USERNAME_MISSING": {
+    "status": 404,
+    "code": 200,
+    "message": "USERNAME_MISSING"
+  },
+  "PASSWORD_MISSING": {
+    "status": 404,
+    "code": 201,
+    "message": "PASSWORD_MISSING"
+  },
+  "TOKEN_MISSING" : {
+    "status": 404,
+    "code": 202,
+    "message": "TOKEN_MISSING"
+  },
+  "JSON_MISSING" : {
+    "status": 404,
+    "code": 203,
+    "message": "JSON_MISSING"
+  },
+
+  "INVALID_USERNAME": {
+    "status": 400,
+    "code": 300,
+    "message": "INVALID_USERNAME"
+  },
+  "INVALID_PASSWORD": {
+    "status": 400,
+    "code": 301,
+    "message": "INVALID_PASSWORD"
+  },
+  "INVALID_TOKEN": {
+    "status": 401,
+    "code": 302,
+    "message": "INVALID_TOKEN"
+  },
+  "INVALID_JSON": {
+    "status": 400,
+    "code": 303,
+    "message": "INVALID_JSON"
+  },
+  "INVALID_QUERY": {
+    "status": 400,
+    "code": 304,
+    "message": "INVALID_QUERY"
+  }
+}
+
