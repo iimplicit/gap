@@ -202,8 +202,8 @@
         }
     ]);
 
-    app.controller("surveyEditPageController", ["$scope", "$http", "$routeParams",
-        function($scope, $http, $routeParams) {
+    app.controller("surveyEditPageController", ["$scope", "$http", "$routeParams", "$window",
+        function($scope, $http, $routeParams, $window) {
             // http://localhost:3000/api/surveys/54d1374ea0f09231943ee5d2
             $http.get("http://localhost:3000/api/surveys/" + $routeParams.id).
             success(function(data) {
@@ -219,6 +219,7 @@
                 success(function(data) {
                     console.log("success")
                     // should implement event after successfully updated
+                    $window.location.href = "/#/surveys";
                     $scope.survey = $scope.initSurvey();
                 }).
                 error(function(data) {
