@@ -24,7 +24,7 @@
             <tbody>
                 <tr ng-repeat="survey in surveys">
                     <td>{{ $index + 1 }}</td>
-                    <td><a href="{{ 'survey/' + survey._id + '/edit/' }}">{{ survey.title }}</a></td>
+                    <td><a href="{{ '#survey/' + survey._id + '/edit/' }}">{{ survey.title }}</a></td>
                     <td>{{ survey.updatedAt | date:"short" }}</td>
                     <td></td>
                     <td><a href="{{ '/#/survey/' + survey._id + '/view/' }}">Live View</a> | <a href="{{ '/#/survey/' + survey._id + '/edit/' }}">Edit</a> | <a href="" ng-click="deleteSurvey(survey._id, $index)">Delete</a> | <a href="{{ '/#/survey/' + survey._id + '/analytics/' }}">Analytics</a></td>
