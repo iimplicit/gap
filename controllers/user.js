@@ -46,7 +46,7 @@ exports.login = function(req, res) {
             if( !user ) { return sendError(res, 'INVALID_USERNAME'); }
             if( user.password !== password ) { return sendError(res, 'INVALID_PASSWORD'); }
 
-            res.json({success: true, token: _createToken(user)});
+            res.json({success: true, token: _createToken(user), username: username});
         });
 };
 
