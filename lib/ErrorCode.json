@@ -14,6 +14,11 @@
     "code": 1,
     "message": "PERMISSION_DENIED"
   },
+  "NOT_ACCEPTABLE": {
+    "status": 406,
+    "code": 2,
+    "message": "NOT_ACCEPTABLE"
+  },
 
   "USERNAME_MISSING": {
     "status": 404,

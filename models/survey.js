@@ -19,7 +19,8 @@ module.exports = (function() {
         items: {},
         url: String,
         responseCount: Number,
-        analyticsData: {}
+        analyticsData: {},
+        surveyResult : {}
     });
 
     return mongoose.model('Survey', Survey);
