@@ -16,7 +16,7 @@ module.exports = (function() {
         type: Number,
         formSetting: {},
         indexSetting: {},
-        items: [{}],
+        items: {},
         url: String,
         responseCount: Number,
         analyticsData: {}

@@ -27,18 +27,7 @@
                 controllerAs: "vm"
             }).when('/surveys', {
                 templateUrl: 'static/pages/surveysPage.html',
-                controller: 'surveysPageController',
-                resolve: function(AuthTokenFactory, $q, $location) {
-                    var deferred = $q.defer();
-                    deferred.resolve();
-                    console.log("resolve", AuthTokenFactory.getToken());
-                    // $location.path('/signin');
-                    // if (!AuthTokenFactory.getToken()) {
-                    //     $location.path('/signin');
-                    // }
-
-                    return deferred.promise;
-                }
+                controller: 'surveysPageController'
             }).when('/survey/new', {
                 templateUrl: 'static/pages/surveyNewPage.html',
                 controller: 'surveyNewPageController'
@@ -47,7 +36,8 @@
                 controller: 'surveyEditPageController'
             }).when('/survey/:id/view', {
                 templateUrl: 'static/pages/surveyViewPage.html',
-                controller: 'surveyViewPageController'
+                controller: 'surveyViewPageController',
+                controllerAs: "view"
             }).when('/survey/:id/analytics', {
                 templateUrl: 'static/pages/surveyAnalyticsPage.html',
                 controller: 'surveyAnalyticsPageController'
@@ -100,8 +90,6 @@
             }
         }
     });
-
-
 
     app.factory('AuthInterceptor', function AuthInterceptor(AuthTokenFactory) {
         'use strict';
