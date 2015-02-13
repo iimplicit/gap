@@ -1,27 +1,26 @@
-#landingPage-view > div.jumbotron {
+div > div > div.jumbotron {
+  border-radius: 5px;
   padding: 70px 0;
   margin-top: 0;
   margin-bottom: 50px;
   background-color: #46dbc2; }
-  #landingPage-view > div.jumbotron > container {
+  div > div > div.jumbotron > div.container {
     margin: 0 auto; }
+  div > div > div.jumbotron > div > div.thumbnail-image {
+    background-image: url("../img/langPage-title.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+    height: 300px;
+    width: 40%;
+    margin: 1px 0; }
 
-#landingPage-view > div.jumbotron > div > div.thumbnail-image {
-  background-image: url("../img/langPage-title.png");
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center center;
-  height: 300px;
-  width: 40%;
-  margin: 1px 0; }
-
-#landingPage-view > div.col-xs-12.col-sm-10.col-md-10.col-lg-8 > div.container.marketing > div:nth-child(1) > div > img {
+#landingPage-view > div > div.marketing > div > div.marketing-item > img {
   width: 140px;
   height: 140px;
   display: block;
   margin: 0 auto; }
-
-#landingPage-view > div.col-xs-12.col-sm-10.col-md-10.col-lg-8 > div > div.row.featurette > div.col-md-5 > div {
+#landingPage-view > div > div.marketing > div.featurette > div.mockup-img > div.thumbnail-image {
   background-image: url("../img/landingPage-mockup.png");
   background-repeat: no-repeat;
   background-size: contain;
