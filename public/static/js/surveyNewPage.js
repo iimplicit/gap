@@ -4,8 +4,8 @@
 (function() {
 	var app = angular.module("GAP");
 
-    app.controller("surveyNewPageController", ["$scope", "$http", "$routeParams",
-        function($scope, $http, $routeParams) {
+  app.controller("surveyNewPageController", ["$scope", "$http", "$routeParams", "$window",
+        function($scope, $http, $routeParams, $window) {
             $scope.initSurvey = function(){
               emptySurvey = {
                   formSetting: {
@@ -76,6 +76,7 @@
                     console.log("success");
                     // after a survey is successfully created,
                     // title user has entered, should be removed
+                    $window.location.href = "/#/surveys";
                     $scope.survey = $scope.initSurvey();
                 }).
                 error(function(data) {
