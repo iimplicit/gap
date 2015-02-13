@@ -2,41 +2,39 @@
 	-webkit-box-shadow: 4px 4px 20px 0px rgba(50, 50, 50, 0.1);
 	-moz-box-shadow:    4px 4px 20px 0px rgba(50, 50, 50, 0.1);
 	box-shadow:         4px 4px 20px 0px rgba(50, 50, 50, 0.1);
+    ::-webkit-input-placeholder {
+      color : #fff;
+      opacity: 0.9;
+    }
 	background-color: #fff;
 	padding: 2px;
+    padding-bottom: 20px;
+    margin-bottom: 10%;
 	& > form {
 		& > div.logo {
 			margin: 0 auto;
+            padding: 6% 130px;
 
-			& > div.thumbnail-image {
-				background-image: url('../img/icon_serviceLogo.png');
-				background-repeat: no-repeat;
-				background-size: contain;
-				background-position: center center;
-				float: center;
-				margin: 0;
-				height: 100px;
-				width: 100px;
-				margin: 1px 0;
-				box-sizing: border-box;
-				display: inline-block;
-			}
+			& > #logo-img{
+              width: 150px;
+            }
 		}
-		& > div.text-input {
+		& > div.input-area {
 			display: block;
-			margin: 6px auto;
-			height: 54px;
+//			margin: 6px auto;
+			height: 64px;
 			box-sizing: border-box;
 			background-color: #46dbc2;	
 			vertical-align: top;
 			font-size: 0;
 			border-radius: 5px;
+            margin: 10px 10%;
+            padding: 5px;
 			& > div.thumbnail-image {
 				background-image: url('../img/email.png');
 				background-repeat: no-repeat;
 				background-size: contain;
 				background-position: center center;
-				margin: 0;
 				height: 52px;
 				width: 15%;
 				margin: 1px 0;
@@ -44,7 +42,7 @@
 				display: inline-block;
 			}
 			& > input {
-				background-color: #46dbc2;	
+				background-color: #46dbc2;
 				border: 0;
 				color: #fff;
 				width: 85%;
@@ -52,30 +50,31 @@
 				display: inline-block;
 				vertical-align: top;
 				margin: 1px 0;
-				font-size: 20px; 
+                padding: 0 7px;
+				font-size: 18px;
 				&:focus {
 					outline: none;
 				}
 			}
 		}
 		& > div.password-input {
-			display: block;
-			margin: 6px auto;
-			height: 54px;
-			box-sizing: border-box;
-			background-color: #d6d8da;	
-			vertical-align: top;
-			font-size: 0;
-			border-radius: 5px;
+//			display: block;
+//			margin: 6px auto;
+//			height: 54px;
+//			box-sizing: border-box;
+			background-color: #d6d8da;
+//			vertical-align: top;
+//			font-size: 0;
+//			border-radius: 5px;
 			& > div.thumbnail-image {
 				background-image: url('../img/password.png');
 				background-repeat: no-repeat;
 				background-size: contain;
 				background-position: center center;
-				margin: 0;
 				height: 52px;
 				width: 15%;
 				margin: 1px 0;
+                padding: 0 7px;
 				box-sizing: border-box;
 				display: inline-block;
 			}
@@ -88,17 +87,35 @@
 				display: inline-block;
 				vertical-align: top;
 				margin: 1px 0;
-				font-size: 20px; 
+				font-size: 18px;
 				&:focus {
 					outline: none;
 				}
 			}
 		}
-		& > button {
+		& > .btn-action {
 			background-color: #FFA200;
 			color: white;
 	        border-radius: 4px;
 	        border: 0;
+            width: 80%;
+            margin: 1% 10%;
+            font-size: 18px;
 	    }
+
 	}
+
+    a.btn-action {
+      color: white;
+      border-radius: 4px;
+      border: 0;
+      width: 80%;
+      font-size: 18px;
+      margin: 2% 10%;
+    }
+
+    .action{
+      margin: 0 10%;
+    }
+
 }

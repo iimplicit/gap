@@ -8,7 +8,8 @@
                 controller: 'landingPageController'
             }).when('/signup', {
                 templateUrl: 'static/pages/signupPage.html',
-                controller: 'signupPageController'
+                controller: 'signupPageController',
+                controllerAs: "cr"
             }).when('/signin', {
                 templateUrl: 'static/pages/signinPage.html',
                 controller: 'signinPageController',
