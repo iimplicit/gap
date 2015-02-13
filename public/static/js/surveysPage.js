@@ -9,7 +9,8 @@
         "use strict";
         return {
             readSurveys: readSurveys,
-            deleteSurvey: deleteSurvey
+            deleteSurvey: deleteSurvey, 
+            readSurvey: readSurvey
         };
 
         function readSurveys() {
@@ -37,10 +38,20 @@
                 });
             }
         }
+
+        function readSurvey(surveyId) {
+            if (AuthTokenFactory.getToken()) {
+                return $http.get("http://localhost:3000/api/surveys/" + surveyId); 
+            } else {
+                return $q.reject({
+                    data: "valid token required"
+                });   
+            }
+        }
     });
 
-    app.controller("surveysPageController", ["SurveyFactory", "$scope",
-        function(SurveyFactory, $scope) {
+    app.controller("surveysPageController", ["SurveyFactory", "$scope", "$window",
+        function(SurveyFactory, $scope, $window) {
             SurveyFactory.readSurveys().then(function(data) {
                 $scope.surveys = data.data.surveyList;
             }, function(response) {
@@ -49,7 +60,7 @@
 
             $scope.deleteSurvey = function(surveyId, $index) {
                 SurveyFactory.deleteSurvey(surveyId).then(function(response) {
-                	$scope.surveys.splice($index, 1);
+                    $scope.surveys.splice($index, 1);
                     console.log("delete successful");
                 }, function(response) {
                     console.log(data);
