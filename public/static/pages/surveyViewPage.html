@@ -17,55 +17,55 @@
                         <div ng-repeat="question in view.survey.items.demographic">
                             <div ng-switch="question.type">
                                 <div ng-switch-when="email" class="form-group">
-                                    <label for="">
+                                    <label for="" ng-init="view.submittingItem.demographic[$index].type = 'email'">
                                         <h4>{{ $index + 1 }}. {{ question.question }}</h4>
                                         <p class="text-danger" ng-show="question.required">* Required</p>
                                     </label>
-                                    <input type="email" class="form-control" placeholder="">
+                                    <input type="email" class="form-control" placeholder="" ng-model="view.submittingItem.demographic[$index].value">
                                 </div>
                                 <div ng-switch-when="text" class="form-group">
-                                    <label for="">
+                                    <label for="" ng-init="view.submittingItem.demographic[$index].type = 'text'">
                                         <h4>{{ $index + 1 }}. {{ question.question }}</h4>
                                         <p class="text-danger" ng-show="question.required">* Required</p>
                                     </label>
-                                    <input type="text" class="form-control" placeholder="">
+                                    <input type="text" class="form-control" placeholder="" ng-model="view.submittingItem.demographic[$index].value">
                                 </div>
                                 <div ng-switch-when="textarea" class="form-group">
-                                    <label for="">
+                                    <label for="" ng-init="view.submittingItem.demographic[$index].type = 'textarea'">
                                         <h4>{{ $index + 1 }}. {{ question.question }}</h4>
                                         <p class="text-danger" ng-show="question.required">* Required</p>
                                     </label>
-                                    <textarea name="" id="" class="form-control" col=""></textarea>
+                                    <textarea name="" id="" class="form-control" col="" ng-model="view.submittingItem.demographic[$index].value"></textarea>
                                 </div>
                                 <div ng-switch-when="date" class="form-group">
-                                    <label for="">
+                                    <label for="" ng-init="view.submittingItem.demographic[$index].type = 'date'">
                                         <h4>{{ $index + 1 }}. {{ question.question }}</h4>
                                         <p class="text-danger" ng-show="question.required">* Required</p>
                                     </label>
-                                    <input type="date" class="form-control" placeholder="">
+                                    <input type="date" class="form-control" placeholder="" ng-model="view.submittingItem.demographic[$index].value">
                                 </div>
                                 <div ng-switch-when="url" class="form-group">
-                                    <label for="">
+                                    <label for="" ng-init="view.submittingItem.demographic[$index].type = 'url'">
                                         <h4>{{ $index + 1 }}. {{ question.question }}</h4>
                                         <p class="text-danger" ng-show="question.required">* Required</p>
                                     </label>
-                                    <input type="url" class="form-control" placeholder="">
+                                    <input type="url" class="form-control" placeholder="" ng-model="view.submittingItem.demographic[$index].value">
                                 </div>
                                 <div ng-switch-when="select" class="form-group">
-                                    <label for="">
+                                    <label for="" ng-init="view.submittingItem.demographic[$index].type = 'select';">
                                         <h4>{{ $index + 1 }}. {{ question.question }}</h4>
                                         <p class="text-danger" ng-show="question.required">* Required</p>
                                     </label>
-                                    <select name="" id="" ng-model="select" ng-options="option as option for option in question.options" class="form-control" ng-init="select = question.options[0]"></select>
+                                    <select name="" id="" ng-options="option as option for option in question.options" class="form-control" ng-model="view.submittingItem.demographic[$index].value" ng-init="select = question.options[0]"></select>
                                 </div>
                                 <div ng-switch-when="checkbox">
-                                    <label for="">
+                                    <label for="" ng-init="view.submittingItem.demographic[$index].type = 'checkbox'; view.submittingItem.demographic[$index].value = [];">
                                         <h4>{{ $index + 1 }}. {{ question.question }}</h4>
                                         <p class="text-danger" ng-show="question.required">* Required</p>
                                     </label>
                                     <div class="checkbox" ng-repeat="option in question.options">
-                                        <label>
-                                            <input type="checkbox"> {{ option }}
+                                        <label ng-init="view.submittingItem.demographic[$parent.$index].value[$index].option = option; view.submittingItem.demographic[$parent.$index].value[$index].value = false;">
+                                            <input type="checkbox" ng-model="view.submittingItem.demographic[$parent.$index].value[$index].value"> {{ option }}
                                         </label>
                                     </div>
                                 </div>
@@ -98,7 +98,7 @@
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ question.question }}</td>
                                     <td ng-repeat="response in question.responses">
-                                        <input type="radio" name="season" id="seasonSummer" value="$index" checked>
+                                        <input type="radio" name="answer{{$parent.$index}}" value="{{ response.name }}" ng-model="answer" ng-change="view.answerGrid(view.currentIndex - 1, $parent.$index, $index, answer)">
                                     </td>
                                 </tr>
                             </tbody>
@@ -124,4 +124,7 @@
                 <strong>Well done!</strong> You successfully completed the survey. If you want to go to see the result page, click <a href="#" class="alert-link">this link</a>.
             </div>
         </div>
+        <div class="row well">
+            {{ view.submittingItem | json }}
+        </div>   
     </div>
