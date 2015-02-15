@@ -69,6 +69,11 @@
                     view.progress = Math.floor((view.currentIndex / view.pageLength) * 100);
                 } else {
                     if (confirm("Would you like to submit your survey?")) {
+                        SurveyFactory.submitSurvey(surveyId, view.submittingItem).then(function(response){
+                            console.log("submit succesful", response);
+                        }, function(response){
+                            console.log("submit failed", response);
+                        });
                         view.currentIndex++;
                         view.progress = Math.floor((view.currentIndex / view.pageLength) * 100);
                     } else {

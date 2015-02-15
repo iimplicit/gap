@@ -42,7 +42,7 @@
 
         function readSurvey(surveyId) {
             if (AuthTokenFactory.getToken()) {
-                return $http.get("http://localhost:3000/api/surveys/" + surveyId);
+                return $http.get(API_URL + "/surveys/" + surveyId);
             } else {
                 return $q.reject({
                     data: "valid token required"
@@ -50,9 +50,9 @@
             }
         }
 
-        function submitSurvey(survey) {
+        function submitSurvey(surveyId, submittingResult) {
             if (AuthTokenFactory.getToken()) {
-                return $http.post("http://localhost:3000/api/surveys/" + surveyId, survey).then(function success(response) {
+                return $http.post("http://localhost:3000/api/surveys/submit/" + surveyId, submittingResult).then(function success(response) {
                     return response;
                 });
             } else {
