@@ -22,8 +22,11 @@
     "mongoose": "^3.8.22",
     "morgan": "~1.0.0",
     "node-cache": "^1.1.0",
+    "node-uuid": "^1.4.2",
     "passport": "^0.2.1",
     "static-favicon": "~1.0.0",
+    "uid": "0.0.2",
+    "uid2": "0.0.3",
     "underscore": "^1.7.0"
   },
   "main": "app.js",

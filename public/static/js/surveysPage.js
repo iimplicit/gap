@@ -63,8 +63,8 @@
         }
     });
 
-    app.controller("surveysPageController", ["SurveyFactory", "$scope", "$window",
-        function(SurveyFactory, $scope, $window) {
+    app.controller("surveysPageController", ["SurveyFactory", "$scope", "$window", "$http",
+        function(SurveyFactory, $scope, $window, $http) {
             SurveyFactory.readSurveys().then(function(data) {
                 $scope.surveys = data.data.surveyList;
             }, function(response) {
@@ -77,6 +77,23 @@
                     console.log("delete successful");
                 }, function(response) {
                     console.log(data);
+                });
+            }
+
+            $scope.copySurvey = function(survey){
+                var addingSurvey = {
+                    title: survey.title + " - copy",
+                    description: survey.description,
+                    formSetting: survey.formSetting,
+                    items: survey.items
+                };
+
+                $http.post("http://localhost:3000/api/surveys", addingSurvey).
+                success(function(data){
+                    $window.location.reload();
+                }).
+                error(function(data){
+                    console.log("error");
                 });
             }
         }

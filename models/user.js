@@ -12,7 +12,8 @@ module.exports = (function() {
         createdAt: {type: Date, default: Date.now},
         updatedAt: {type: Date, default: Date.now},
         email: String,
-        password: String
+        password: String,
+        surveyResult: {}
     });
 
     return mongoose.model('User', User);
