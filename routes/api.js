@@ -14,7 +14,7 @@ var Authorization = require('../lib/authorization');
 router.post('/surveys', Authorization.token, survey.create);
 
 router.get('/surveys', Authorization.token, survey.readList);
-router.get('/surveys/:id', Authorization.token, survey.read);
+router.get('/surveys/:id', survey.read);
 
 router.put('/surveys/:id', Authorization.token, survey.update);
 router.delete('/surveys/:id', Authorization.token, survey.delete);

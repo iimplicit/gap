@@ -51,18 +51,32 @@ exports.readList = function(req, res) {
 };
 
 exports.read = function(req, res) {
-    var decodedToken = req.decodeToken;
-    var Survey = mongoose.model('Survey');
+    var token = req.get('Authorization');
     var id = req.params.id;
 
+    var Survey = mongoose.model('Survey');
     Survey.findOne({_id: id})
         .exec(function(err, survey) {
             if( err ) { return sendError(res, err); }
             if( !survey ) { return sendError(res, 'INVALID_QUERY'); }
-            if( survey.userId.toString() !== decodedToken._id ) { return sendError(res, 'PERMISSION_DENIED'); }
+            var decodedToken = token === undefined ? null : decodeToken(token);
 
-            res.json({success: true, survey: survey});
-        });
+
+            if( !decodedToken || survey.userId.toString() !== decodedToken._id ) {
+                var survey = survey.toObject();
+                delete survey.responseCount;
+                delete survey.analyticsData;
+                delete survey.surveyResult;
+                delete survey.userId;
+                delete survey.__v;
+
+                return res.json({success: true, survey: survey});
+            } else {
+
+                return res.json({success: true, survey: survey});
+            }
+    });
+
 };
 
 exports.update = function(req, res) {
@@ -146,20 +160,22 @@ exports.exportData = function(req, res) {
 
     existUser(decodedToken, function(err, user) {
         if (err) { return sendError(res, 'INVALID_TOKEN'); }
-        var Survey = mongoose.model('Survey');
+        var SurveyResult = mongoose.model('SurveyResult');
 
-        Survey.findOne({_id: surveyId, userId: decodedToken._id}, function(err, survey) {
+        SurveyResult.findOne({surveyId: surveyId}, function(err, survey) {
             res.setHeader('Content-disposition', 'attachment; filename=survey.csv');
             res.setHeader('Content-type', 'text/csv');
 
-            survey = _.isArray(survey) ?
-                survey :
-                [survey];
+            //survey = _.isArray(survey) ?
+            //    survey :
+            //    [survey];
+            console.log(survey);
 
-            exportJson2Csv(survey, config.csvFormat, function(err, csv) {
-                res.write(csv);
-                res.end();
-            });
+
+            //exportJson2Csv(survey, config.csvFormat, function(err, csv) {
+            //    res.write(csv);
+            //    res.end();
+            //});
         });
     });
 };
