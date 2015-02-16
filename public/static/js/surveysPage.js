@@ -81,19 +81,12 @@
             }
 
             $scope.copySurvey = function(survey){
-                var addingSurvey = {
-                    title: survey.title + " - copy",
-                    description: survey.description,
-                    formSetting: survey.formSetting,
-                    items: survey.items
-                };
-
-                $http.post("http://localhost:3000/api/surveys", addingSurvey).
+                $http.post("http://localhost:3000/api/surveys/" + survey._id + "/copy").
                 success(function(data){
-                    $window.location.reload();
+                  $window.location.reload();
                 }).
                 error(function(data){
-                    console.log("error");
+                  console.log("error");
                 });
             }
         }
