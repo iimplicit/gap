@@ -7,15 +7,28 @@
               <legend>Sign up</legend>
               <div class="text-input input-area">
                   <div class="thumbnail-image" id="email-thumbnail-image"></div>
-                  <input type="text" class="form-control" id="inputEmail" placeholder="Email" ng-model="cr.email">
+                  <input type="email" name="email" class="form-control" id="inputEmail" minlength="4" maxlength="20" required placeholder="Email" ng-model="cr.email">
+                  <div ng-messages="signupForm.email.$error" ng-messages-multiple>
+                      <div ng-message="required">This field is required</div>
+                      <div ng-message="minlength">Input too short</div>
+                      <div ng-message="email">This field must be an email</div>
+                  </div>
               </div>
               <div class="text-input input-area">
                   <div class="thumbnail-image"></div>
-                  <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="cr.username">
+                  <input type="text" name="username" class="form-control" id="inputName" required minlength="4" maxlength="10" placeholder="Name" ng-model="cr.username">
+                  <div ng-messages="signupForm.username.$error" ng-messages-multiple>
+                      <div ng-message="required">This field is required</div>
+                      <div ng-message="minlength">Input too short</div>
+                  </div>
               </div>
               <div class="password-input input-area">
                   <div class="thumbnail-image"></div>
-                  <input type="password" class="form-control" ng-model="cr.password" placeholder="password">
+                  <input type="password" name="password" class="form-control" ng-model="cr.password" minlength="4" maxlength="12" required placeholder="password">
+                  <div ng-messages="signupForm.password.$error"  ng-messages-multiple>
+                      <div ng-message="required">This field is required</div>
+                      <div ng-message="minlength">Input too short</div>
+                  </div>
               </div>
               <div class="form-group action">
                   <button id="goBack" type="reset" class="btn btn-default">Cancel</button>

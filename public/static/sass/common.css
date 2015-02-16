@@ -10,4 +10,9 @@ footer {
   footer ul.list-unstyled > li {
     float: left !important; }
 
+.block {
+  pointer-events: none;
+  cursor: default;
+  border: 2px solid #e74c3c !important; }
+
 /*# sourceMappingURL=common.css.map */

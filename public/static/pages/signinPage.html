@@ -9,11 +9,19 @@
                   </div>
                 <div class="text-input input-area">
             <div class="thumbnail-image"></div>
-                  <input type="text" ng-model="vm.username" placeholder="please enter your name">
+                  <input type="text" name="username" ng-model="vm.username" minlength="4" maxlength="10" required placeholder="please enter your name">
+                <div ng-messages="signinForm.username.$error" ng-messages-multiple>
+                    <div ng-message="required">This field is required</div>
+                    <div ng-message="minlength">Input too short</div>
+                </div>
                 </div>
                 <div class="password-input input-area">
                   <div class="thumbnail-image"></div>
-                  <input type="password" ng-model="vm.password" placeholder="please enter your password">
+                  <input type="password" ng-model="vm.password" minlength="4" maxlength="12" required placeholder="please enter your password">
+                    <div ng-messages="signinForm.password.$error"  ng-messages-multiple>
+                        <div ng-message="required">This field is required</div>
+                        <div ng-message="minlength">Input too short</div>
+                    </div>
                 </div>
                   <input type="submit" class="btn btn-primary btn-action" value="Sign-in">
               </form>
