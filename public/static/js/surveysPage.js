@@ -9,8 +9,9 @@
         "use strict";
         return {
             readSurveys: readSurveys,
-            deleteSurvey: deleteSurvey, 
-            readSurvey: readSurvey
+            deleteSurvey: deleteSurvey,
+            readSurvey: readSurvey,
+            submitSurvey: submitSurvey
         };
 
         function readSurveys() {
@@ -41,17 +42,29 @@
 
         function readSurvey(surveyId) {
             if (AuthTokenFactory.getToken()) {
-                return $http.get("http://localhost:3000/api/surveys/" + surveyId); 
+                return $http.get(API_URL + "/surveys/" + surveyId);
             } else {
                 return $q.reject({
                     data: "valid token required"
-                });   
+                });
+            }
+        }
+
+        function submitSurvey(surveyId, submittingResult) {
+            if (AuthTokenFactory.getToken()) {
+                return $http.post("http://localhost:3000/api/surveys/submit/" + surveyId, submittingResult).then(function success(response) {
+                    return response;
+                });
+            } else {
+                return $q.reject({
+                    data: "valid token required"
+                });
             }
         }
     });
 
-    app.controller("surveysPageController", ["SurveyFactory", "$scope", "$window",
-        function(SurveyFactory, $scope, $window) {
+    app.controller("surveysPageController", ["SurveyFactory", "$scope", "$window", "$http",
+        function(SurveyFactory, $scope, $window, $http) {
             SurveyFactory.readSurveys().then(function(data) {
                 $scope.surveys = data.data.surveyList;
             }, function(response) {
@@ -64,6 +77,23 @@
                     console.log("delete successful");
                 }, function(response) {
                     console.log(data);
+                });
+            }
+
+            $scope.copySurvey = function(survey){
+                var addingSurvey = {
+                    title: survey.title + " - copy",
+                    description: survey.description,
+                    formSetting: survey.formSetting,
+                    items: survey.items
+                };
+
+                $http.post("http://localhost:3000/api/surveys", addingSurvey).
+                success(function(data){
+                    $window.location.reload();
+                }).
+                error(function(data){
+                    console.log("error");
                 });
             }
         }
