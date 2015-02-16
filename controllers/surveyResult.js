@@ -137,6 +137,7 @@ function _calculateResult(body, callback) {
         callback(null, {
             categories: categories,
             nations: nations,
+            replies: replies,
             result:resultArray
         });
     });

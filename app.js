@@ -33,7 +33,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cors());
-app.use(expressJWT({ secret: config.jwt.secret}).unless({path: ['/api/login','/api/users', '/', new RegExp('^/api/surveys/submit')]}));
+app.use(expressJWT({ secret: config.jwt.secret}).unless({path: ['/api/login','/api/users', new RegExp('^/api/surveys'), new RegExp('^/api/surveys/submit')]}));
 
 app.use('/', routes);
 app.use('/users', users);
