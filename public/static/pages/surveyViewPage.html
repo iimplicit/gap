@@ -1,133 +1,146 @@
 <div class="row">
-    <div class="xs-hidden col-sm-1 col-md-1 col-lg-2"></div>
-    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8">
-        <div ng-switch="view.currentIndex">
-            <div class="row">
-                <p class="text-muted pull-right">{{ view.progress }}% Complete</p>
-            </div>
-            <div class="progress">
-                <div class="progress-bar" style="width: {{ view.progress }}%"></div>
-            </div>
-            <div ng-switch-when="0">
-                <div class="well">
-                    <h1>{{ view.survey.title }}</h1>
-                    <p>{{ view.survey.description }}</p>
+    <div class="xs-hidden col-sm-1 col-md-1 col-lg-1"></div>
+    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10" ng-form="formControl" name="formControl">
+            <div ng-switch="view.currentIndex">
+                <div class="row">
+                    <p class="text-muted pull-right">{{ view.progress }}% Complete</p>
                 </div>
-                <div>
+                <div class="progress">
+                    <div class="progress-bar" style="width: {{ view.progress }}%"></div>
+                </div>
+                <div ng-switch-when="0">
                     <div class="well">
-                        <div ng-repeat="question in view.survey.items.demographic">
-                            <div ng-switch="question.type">
-                                <div ng-switch-when="email" class="form-group">
-                                    <label for="" ng-init="view.submittingItem.demographic[$index].type = 'email'">
-                                        <h4>{{ $index + 1 }}. {{ question.question }}</h4>
-                                        <p class="text-danger" ng-show="question.required">* Required</p>
-                                    </label>
-                                    <input type="email" class="form-control" placeholder="" ng-model="view.submittingItem.demographic[$index].value">
-                                </div>
-                                <div ng-switch-when="text" class="form-group">
-                                    <label for="" ng-init="view.submittingItem.demographic[$index].type = 'text'">
-                                        <h4>{{ $index + 1 }}. {{ question.question }}</h4>
-                                        <p class="text-danger" ng-show="question.required">* Required</p>
-                                    </label>
-                                    <input type="text" class="form-control" placeholder="" ng-model="view.submittingItem.demographic[$index].value">
-                                </div>
-                                <div ng-switch-when="textarea" class="form-group">
-                                    <label for="" ng-init="view.submittingItem.demographic[$index].type = 'textarea'">
-                                        <h4>{{ $index + 1 }}. {{ question.question }}</h4>
-                                        <p class="text-danger" ng-show="question.required">* Required</p>
-                                    </label>
-                                    <textarea name="" id="" class="form-control" col="" ng-model="view.submittingItem.demographic[$index].value"></textarea>
-                                </div>
-                                <div ng-switch-when="date" class="form-group">
-                                    <label for="" ng-init="view.submittingItem.demographic[$index].type = 'date'">
-                                        <h4>{{ $index + 1 }}. {{ question.question }}</h4>
-                                        <p class="text-danger" ng-show="question.required">* Required</p>
-                                    </label>
-                                    <input type="date" class="form-control" placeholder="" ng-model="view.submittingItem.demographic[$index].value">
-                                </div>
-                                <div ng-switch-when="url" class="form-group">
-                                    <label for="" ng-init="view.submittingItem.demographic[$index].type = 'url'">
-                                        <h4>{{ $index + 1 }}. {{ question.question }}</h4>
-                                        <p class="text-danger" ng-show="question.required">* Required</p>
-                                    </label>
-                                    <input type="url" class="form-control" placeholder="" ng-model="view.submittingItem.demographic[$index].value">
-                                </div>
-                                <div ng-switch-when="select" class="form-group">
-                                    <label for="" ng-init="view.submittingItem.demographic[$index].type = 'select';">
-                                        <h4>{{ $index + 1 }}. {{ question.question }}</h4>
-                                        <p class="text-danger" ng-show="question.required">* Required</p>
-                                    </label>
-                                    <select name="" id="" ng-options="option as option for option in question.options" class="form-control" ng-model="view.submittingItem.demographic[$index].value" ng-init="select = question.options[0]"></select>
-                                </div>
-                                <div ng-switch-when="checkbox">
-                                    <label for="" ng-init="view.submittingItem.demographic[$index].type = 'checkbox'; view.submittingItem.demographic[$index].value = [];">
-                                        <h4>{{ $index + 1 }}. {{ question.question }}</h4>
-                                        <p class="text-danger" ng-show="question.required">* Required</p>
-                                    </label>
-                                    <div class="checkbox" ng-repeat="option in question.options">
-                                        <label ng-init="view.submittingItem.demographic[$parent.$index].value[$index].option = option; view.submittingItem.demographic[$parent.$index].value[$index].value = false;">
-                                            <input type="checkbox" ng-model="view.submittingItem.demographic[$parent.$index].value[$index].value"> {{ option }}
-                                        </label>
+                        <h1>{{ view.survey.title }}</h1>
+                        <p>{{ view.survey.description }}</p>
+                    </div>
+                    <div>
+                        <div class="well">
+                            <div ng-repeat="question in view.survey.items.demographic">
+                                <div ng-switch="question.type">
+                                    <div ng-form="demographic" name="demographic{{ $index }}" class="form-horizontal" validate>
+                                        <fieldset>
+                                            <div ng-switch-when="email" class="form-group" ng-class="{'has-error': demographic{{ $index }}.question{{ $index }}.$invalid}">
+                                                <label for="" ng-init="view.submittingItem.demographic[$index].type = 'email'">
+                                                    <h4>{{ $index + 1 }}. {{ question.question }}</h4>
+                                                </label>
+                                                <input type="email" name="question{{ $index }}" class="form-control" placeholder="" ng-model="view.submittingItem.demographic[$index].value" ng-required="question.required" minlength="5">
+                                                <error-message></error-message>
+                                            </div>
+                                            <div ng-switch-when="text" class="form-group" ng-class="{'has-error': demographic{{ $index }}.question{{ $index }}.$invalid}">
+                                                <label for="" ng-init="view.submittingItem.demographic[$index].type = 'text'">
+                                                    <h4>{{ $index + 1 }}. {{ question.question }}</h4>
+                                                </label>
+                                                <input type="text" name="question{{ $index }}" class="form-control" placeholder="" ng-model="view.submittingItem.demographic[$index].value" ng-required="question.required" minlength="5">
+                                                <error-message></error-message>
+                                            </div>
+                                            <div ng-switch-when="textarea" class="form-group" ng-class="{'has-error': demographic{{ $index }}.question{{ $index }}.$invalid}">
+                                                <label for="" ng-init="view.submittingItem.demographic[$index].type = 'textarea'">
+                                                    <h4>{{ $index + 1 }}. {{ question.question }}</h4>
+                                                </label>
+                                                <textarea name="question{{ $index }}" class="form-control" col="" ng-model="view.submittingItem.demographic[$index].value" ng-required="question.required" minlength="5"></textarea>
+                                                <error-message></error-message>
+                                            </div>
+                                            <div ng-switch-when="date" class="form-group" ng-class="{'has-error': demographic{{ $index }}.question{{ $index }}.$invalid}">
+                                                <label for="" ng-init="view.submittingItem.demographic[$index].type = 'date'">
+                                                    <h4>{{ $index + 1 }}. {{ question.question }}</h4>
+                                                </label>
+                                                <input type="date" name="question{{ $index }}" class="form-control" placeholder="" ng-model="view.submittingItem.demographic[$index].value" ng-required="question.required" minlength="5">
+                                                <error-message></error-message>
+                                            </div>
+                                            <div ng-switch-when="url" class="form-group" ng-class="{'has-error': demographic{{ $index }}.question{{ $index }}.$invalid}">
+                                                <label for="" ng-init="view.submittingItem.demographic[$index].type = 'url'">
+                                                    <h4>{{ $index + 1 }}. {{ question.question }}</h4>
+                                                </label>
+                                                <input type="url" name="question{{ $index }}" class="form-control" placeholder="" ng-model="view.submittingItem.demographic[$index].value" ng-required="question.required" minlength="5">
+                                                <error-message></error-message>
+                                            </div>
+                                            <div ng-switch-when="select" class="form-group" ng-class="{'has-error': demographic{{ $index }}.question{{ $index }}.$invalid}">
+                                                <label for="" ng-init="view.submittingItem.demographic[$index].type = 'select';">
+                                                    <h4>{{ $index + 1 }}. {{ question.question }}</h4>
+                                                </label>
+                                                <select name="question{{ $index }}" ng-options="option as option for option in question.options" class="form-control" ng-model="view.submittingItem.demographic[$index].value" ng-init="view.submittingItem.demographic[$index].value = question.options[0]" ng-required="question.required"></select>
+                                                <error-message></error-message>
+                                            </div>
+                                            <div ng-switch-when="checkbox" ng-class="{'has-error': demographic{{ $index }}.question{{ $index }}.$invalid}">
+                                                <label for="" ng-init="view.submittingItem.demographic[$index].type = 'checkbox'; view.submittingItem.demographic[$index].value = [];">
+                                                    <h4>{{ $index + 1 }}. {{ question.question }}</h4>
+                                                </label>
+                                                <div class="checkbox" ng-repeat="option in question.options">
+                                                    <label ng-init="view.submittingItem.demographic[$parent.$index].value[$index].option = option; view.submittingItem.demographic[$parent.$index].value[$index].value = false;">
+                                                        <input type="checkbox" name="question{{ $parent.$index }}{{ $index }}" ng-model="view.submittingItem.demographic[$parent.$index].value[$index].value" ng-required="question.required"> {{ option }}
+                                                    </label>
+                                                </div>
+                                                <error-message></error-message>
+                                            </div>
+                                        </fieldset>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div ng-switch-default class="well" ng-if="view.currentIndex !== view.pageLength">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Scenario. {{ view.currentIndex }} {{ view.survey.items.content[ view.currentIndex - 1 ].question }}</h3>
+                <div ng-switch-default class="well" ng-if="view.currentIndex !== view.pageLength">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Scenario. {{ view.currentIndex }} {{ view.survey.items.content[ view.currentIndex - 1 ].question }}</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p>{{ view.survey.items.content[ view.currentIndex - 1 ].scenario }}</p>
+                        </div>
                     </div>
-                    <div class="panel-body">
-                        <p>{{ view.survey.items.content[ view.currentIndex - 1 ].scenario }}</p>
+                    <div ng-switch="view.survey.items.content[ view.currentIndex - 1 ].type">
+                        <div ng-switch-when="grid" ng-repeat="question in view.survey.items.content[ view.currentIndex - 1 ].questions" ng-form="content" name="content{{ $index }}">
+                            <div>
+                                <table class="panel panel-default table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Question</th>
+                                            <th ng-repeat="response in question.responses">{{ response.name }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>{{ question.question }}</td>
+                                            <td ng-repeat="response in question.responses">
+                                                <input type="radio" name="answer{{ $parent.$index }}" value="{{ response.name }}" ng-model="view.answer[view.currentIndex - 1][$parent.$index]" ng-change="view.answerGrid(view.currentIndex - 1, $parent.$index, $index, view.answer[view.currentIndex - 1][$parent.$index])" ng-required="!view.answer[view.currentIndex - 1][$parent.$index]">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div ng-messages="content{{ $index }}.answer{{ $index }}.$error">
+                                <div ng-message="required" class="pull-right">
+                                    <p class="text-danger">* Please choose from one of the answers.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div ng-switch="view.survey.items.content[ view.currentIndex - 1 ].type">
-                    <div class="form-group panel panel-default" ng-switch-when="grid">
-                        <table class="table table-striped table-hover" ng-repeat="question in view.survey.items.content[ view.currentIndex - 1 ].questions">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Question</th>
-                                    <th ng-repeat="response in question.responses">{{ response.name }}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{ $index + 1 }}</td>
-                                    <td>{{ question.question }}</td>
-                                    <td ng-repeat="response in question.responses">
-                                        <input type="radio" name="answer{{$parent.$index}}" value="{{ response.name }}" ng-model="answer" ng-change="view.answerGrid(view.currentIndex - 1, $parent.$index, $index, answer)">
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+            </div>
+            <div ng-switch="view.currentIndex" ng-if="view.currentIndex < view.pageLength">
+                <ul class="pager" ng-switch-when="0">
+                    <li ng-click="view.goNext()"><a href="">Next <i class="fa fa-angle-right"></i></a>
+                    </li>
+                </ul>
+                <ul class="pager" ng-switch-default>
+                    <li ng-click="view.goPrev()"><a href=""><i class="fa fa-angle-left"></i> Prev</a>
+                    </li>
+                    <li ng-click="view.goNext()" ng-if="view.currentIndex !== view.pageLength-1"><a href="">Next <i class="fa fa-angle-right"></i></a>
+                    </li>
+                    <li ng-click="view.goNext()" ng-if="view.currentIndex === view.pageLength-1"><a href="" ng-class="{'block': formControl.$invalid}">Submit <i class="fa fa-paper-plane"></i></a>
+                    </li>
+                </ul>
+            </div>
+            <div ng-if="view.currentIndex === view.pageLength">
+                <div class="well">
+                    <strong>Well done!</strong> You successfully completed the survey. If you want to go to see the result page, click <a href="#" class="alert-link">this link</a>.
                 </div>
             </div>
-        </div>
-        <div ng-switch="view.currentIndex" ng-if="view.currentIndex !== view.pageLength">
-            <ul class="pager" ng-switch-when="0">
-                <li><a href="" ng-click="view.goNext()">Next <i class="fa fa-angle-right"></i></a>
-                </li>
-            </ul>
-            <ul class="pager" ng-switch-default>
-                <li ng-click="view.goPrev()"><a href=""><i class="fa fa-angle-left"></i> Prev</a>
-                </li>
-                <li ng-click="view.goNext()"><a href="">Next <i class="fa fa-angle-right"></i></a>
-                </li>
-            </ul>
-        </div>
-        <div ng-if="view.currentIndex === view.pageLength">
-            <div class="well">
-                <strong>Well done!</strong> You successfully completed the survey. If you want to go to see the result page, click <a href="#" class="alert-link">this link</a>.
-            </div>
-        </div>
-        <div class="row well">
-            {{ view.submittingItem | json }}
-        </div>
+<!--             <div class="row well">
+                {{ view.submittingItem | json }}
+            </div> -->
     </div>
-    <div class="xs-hidden col-sm-1 col-md-1 col-lg-2"></div>
+    <div class="xs-hidden col-sm-1 col-md-1 col-lg-1"></div>
 </div>
