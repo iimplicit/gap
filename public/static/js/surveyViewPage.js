@@ -4,8 +4,8 @@
 (function() {
     var app = angular.module("GAP");
 
-    app.controller("surveyViewPageController", ["$injector", "$routeParams", "SurveyFactory", "$q",
-        function($injector, $routeParams, SurveyFactory, $q) {
+    app.controller("surveyViewPageController", ["$injector", "$routeParams", "SurveyFactory", "$q", "$scope",
+        function($injector, $routeParams, SurveyFactory, $q, $scope) {
             var view = this;
 
             var surveyId = $routeParams.id;
@@ -32,8 +32,8 @@
                     });
                 }
 
-                view.survey.items.content.forEach(function(item, index){
-                    view.survey.items.content[index].questions.forEach(function(){
+                view.survey.items.content.forEach(function(item, index) {
+                    view.survey.items.content[index].questions.forEach(function() {
                         view.submittingItem.surveyReply.push("");
                     })
                 });
@@ -69,9 +69,9 @@
                     view.progress = Math.floor((view.currentIndex / view.pageLength) * 100);
                 } else {
                     if (confirm("Would you like to submit your survey?")) {
-                        SurveyFactory.submitSurvey(surveyId, view.submittingItem).then(function(response){
+                        SurveyFactory.submitSurvey(surveyId, view.submittingItem).then(function(response) {
                             console.log("submit succesful", response);
-                        }, function(response){
+                        }, function(response) {
                             console.log("submit failed", response);
                         });
                         view.currentIndex++;
@@ -98,15 +98,22 @@
             //          after calculating indexCount, puts responseNumber into the array        
             view.answerGrid = function(scenarioNumber, questionNumber, responseNumber, answer) {
                 var indexCount = 0;
-                view.survey.items.content.forEach(function(item, firstIndex){
-                    view.survey.items.content[firstIndex].questions.forEach(function(item, secondIndex){
+                view.survey.items.content.forEach(function(item, firstIndex) {
+                    view.survey.items.content[firstIndex].questions.forEach(function(item, secondIndex) {
                         indexCount++;
-                        if(firstIndex === scenarioNumber && secondIndex === questionNumber) {
-                            view.submittingItem.surveyReply[indexCount-1] = responseNumber + "";    
+                        if (firstIndex === scenarioNumber && secondIndex === questionNumber) {
+                            view.submittingItem.surveyReply[indexCount - 1] = responseNumber + "";
                         }
                     })
                 });
             }
         }
     ]);
+
+    app.directive("errorMessage", function() {
+        return {
+            restrict: "E",
+            templateUrl: "./static/pages/errorMessage.html"
+        };
+    });
 })();
