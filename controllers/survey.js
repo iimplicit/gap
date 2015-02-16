@@ -9,6 +9,9 @@ var json_2_csv = require('json-2-csv').json2csv;
 var sendError = require('../lib/util').sendError;
 var existUser= require('../lib/util').existUser;
 
+var decodeToken = require('../lib/util').decodeToken;
+
+
 var config = require('../config');
 
 exports.create = function(req, res) {
