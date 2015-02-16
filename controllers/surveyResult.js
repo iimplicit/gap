@@ -17,8 +17,6 @@ exports.submit = function(req, res) {
 
     if(_.isEmpty(body) ) { return sendError(res, 'JSON_MISSING'); }
 
-    var Survey = mongoose.model('Survey');
-
     async.waterfall([
         function isAnonymouseUser(callback) {
             var User = mongoose.model('User');
@@ -83,7 +81,7 @@ exports.submit = function(req, res) {
 
             if( !token ) {
                 // is AnonymouseUser
-                return callback(null);
+                return callback(null, result);
             } else {
                 // not AnonymouseUser
                 var user = {
@@ -98,6 +96,20 @@ exports.submit = function(req, res) {
                     return callback(err, result);
                 });
             }
+        },
+        function updateResponseCount(result, callback) {
+            var Survey = mongoose.model('Survey');
+            var SurveyResult = mongoose.model('SurveyResult');
+
+            SurveyResult.findOne({surveyId: surveyId}, function(err, surveyResult) {
+                if( err ) { return callback(err); }
+                if( !surveyResult ) { return callback(err); }
+                var responseCount = _.keys(surveyResult.result).length;
+
+                Survey.update({_id: surveyId}, {$set:{responseCount: responseCount}}, {upsert:true, safe:true}, function(err) {
+                    return callback(err, result);
+                });
+            });
         }
     ], function done(err, result) {
         if( err ) { return sendError(res, err); }
@@ -105,6 +117,21 @@ exports.submit = function(req, res) {
         res.json(result);
     });
 };
+
+function _updateResponseCount(surveyId) {
+    var Survey = mongoose.model('Survey');
+    var SurveyResult = mongoose.model('SurveyResult');
+
+    SurveyResult.findOne({surveyId: surveyId}, function(err, result) {
+        if( err ) { return callback(err); }
+        if( !result ) { return callback(err); }
+        var responseCount = _.keys(result.result).length;
+
+        console.log(responseCount);
+
+        Survey.update({_id: surveyId}, {$set:{responseCount: responseCount}}, {upsert:true, safe:true});
+    });
+}
 
 function _calculateResult(body, callback) {
     var Survey = mongoose.model('Survey');
