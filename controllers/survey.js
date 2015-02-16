@@ -135,6 +135,7 @@ exports.copy = function(req, res) {
             function copySurvey(survey, callback) {
                 survey.createdAt = survey.updatedAt = Date.now();
                 survey._id = mongoose.Types.ObjectId();
+                survey.responseCount = 0;
                 survey.title = 'COPY ' + survey.title;
                 survey.isNew = true; //<--------------------IMPORTANT
                 survey.save(function(err, result) {
