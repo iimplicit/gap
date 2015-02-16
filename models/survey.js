@@ -18,7 +18,7 @@ module.exports = (function() {
         indexSetting: {},
         items: {},
         url: String,
-        responseCount: Number,
+        responseCount: {type: Number, default: 0},
         analyticsData: {},
         surveyResult : {}
     });
