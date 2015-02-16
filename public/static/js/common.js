@@ -3,7 +3,7 @@
  */
 (function() {
     "use strict";
-    var app = angular.module("GAP", ["ngRoute"]);
+    var app = angular.module("GAP", ["ngRoute", "ngMessages"]);
 
     app.constant("API_URL", "http://localhost:3000/api");
 
