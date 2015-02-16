@@ -9,3 +9,61 @@
 .gap-callout-info {
     border-left-color: #1b809e;
 }
+
+
+
+#survey-form{
+  h3{
+    margin: 3px 5px;
+  }
+
+  .add-input-group{
+    margin: 10px 0;
+    .input-group-addon{
+      font-weight : bold;
+      font-size: 19px;
+
+    }
+  }
+
+  ul li{
+    list-style: none;
+    float: left;
+    margin-right: 4px;
+    background-color: #55d6b6;
+    padding: 2px 4px;
+    margin-bottom: 4px;
+  }
+  div.group {
+    margin-bottom: 20px;
+  }
+
+  .clear-float {
+    clear: both;
+  }
+}
+
+.survey-subtitle {
+  margin: 10px 5px;
+
+}
+
+div.select-group {
+  margin-bottom: 20px;
+}
+
+.grid-table {
+  margin-bottom: 20px;
+  th {
+    width: auto;
+    padding: 0 2px;
+  }
+  input.form-control {
+    height: 30px;
+  }
+}
+
+.dashed-hr{
+  border-top: 2px dashed #d4d2e8;
+}
+
