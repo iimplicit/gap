@@ -1,0 +1,17 @@
+<div ng-messages="demographic{{ $index }}.question{{ $index }}.$error">
+    <div ng-message="required">
+        <p class="text-danger">* This field is required.</p>
+    </div>
+    <div ng-message="minlength">
+        <p class="text-danger">* You have to put in at least five characters.</p>
+    </div>
+    <div ng-message="email">
+        <p class="text-danger">* Not a vaild email address.</p>
+    </div>
+    <div ng-message="url">
+        <p class="text-danger">* Not a url type.</p>
+    </div>
+    <div ng-message="date">
+        <p class="text-danger">* Not a vaild date type.</p>
+    </div>
+</div>
