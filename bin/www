@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 var debug = require('debug')('survey');
 var app = require('../app');
+var logger = require('../lib/logger');
 
 app.set('port', process.env.PORT || 3000);
 
@@ -10,6 +11,6 @@ var server = app.listen(app.get('port'), function() {
 
 process.on('uncaughtException', function(err) {
   // TODO logging
-  console.log(err.stack);
+  logger.cri('[UncaughtException] ' + err.stack );
   process.exit(1);
 });

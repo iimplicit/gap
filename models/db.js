@@ -3,29 +3,27 @@
  */
 var mongoose = require('mongoose');
 var dbURI = require('../config').mongodb.dbURI;
+var logger = require('../lib/logger');
+
 
 module.exports = (function() {
-    console.log('try connect : ', dbURI);
+    logger.info('Try connect Mongodb : ' + dbURI);
 
     mongoose.connect(dbURI, {auto_reconnect: true});
 
-    mongoose.connection
-        .on('connected', function() {
-        console.log('mongodb connected : ', dbURI);
-    })
-        .on('disconnected', function() {
-        console.log('mongodb disconnected : ', dbURI);
-    })
-        .on('reconnected', function() {
-        console.log('mongodb reconnected : ', dbURI);
-    })
-        .on('error', function() {
-        console.log('mongodb error : ', dbURI);
+    mongoose.connection.on('connected', function() {
+        logger.info('Connected Mongodb : ' + dbURI);
+    }).on('disconnected', function() {
+        logger.minor('Disconnected Mongodb : ' + dbURI);
+    }).on('reconnected', function() {
+        logger.info('Reconnected Mongodb : ' + dbURI);
+    }).on('error', function(err) {
+        logger.info('Error Mongodb : ' + dbURI + ' ' + err.stack);
     });
 
     process.on('SIGINT', function() {
         mongoose.connection.close(function () {
-            console.log('Mongoose disconnected through app termination');
+            logger.cri('Mongoose disconnected through app termination : ' + dbURI);
             process.exit(0);
         });
     });
