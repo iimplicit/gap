@@ -32,3 +32,5 @@ node_modules
 bower_components/
 
 admin/node_modules
+
+log.*
