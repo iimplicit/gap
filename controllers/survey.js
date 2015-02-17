@@ -9,6 +9,9 @@ var json_2_csv = require('json-2-csv').json2csv;
 var sendError = require('../lib/util').sendError;
 var existUser= require('../lib/util').existUser;
 
+var decodeToken = require('../lib/util').decodeToken;
+
+
 var config = require('../config');
 
 exports.create = function(req, res) {
@@ -59,7 +62,6 @@ exports.read = function(req, res) {
             if( err ) { return sendError(res, err); }
             if( !survey ) { return sendError(res, 'INVALID_QUERY'); }
             var decodedToken = token === undefined ? null : decodeToken(token);
-
 
             if( !decodedToken || survey.userId.toString() !== decodedToken._id ) {
                 var survey = survey.toObject();
@@ -136,8 +138,10 @@ exports.copy = function(req, res) {
                 survey.createdAt = survey.updatedAt = Date.now();
                 survey._id = mongoose.Types.ObjectId();
                 survey.responseCount = 0;
-                survey.title = 'COPY ' + survey.title;
+                survey.title = survey.title + ' - copy';
                 survey.isNew = true; //<--------------------IMPORTANT
+                console.log(survey);
+
                 survey.save(function(err, result) {
                     callback(err, result);
                 });
