@@ -5,5 +5,19 @@
   "jwt": {
     "secret": "jwtscrethellowrold123"
   },
-  "csvFormat": ["title"]
+  "csvFormat": ["title"],
+  "loggingOption" : {
+    "levels": {
+      "debug": 0,
+      "info": 1,
+      "minor": 2,
+      "cri": 3
+    },
+    "colors": {
+      "debug": "white",
+      "info": "green",
+      "minor": "orange",
+      "cri": "read"
+    }
+  }
 }
