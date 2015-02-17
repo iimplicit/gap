@@ -137,7 +137,7 @@ function _calculateResult(body, callback) {
     var Survey = mongoose.model('Survey');
 
     Survey.findOne({_id: body.surveyId}, function(err, survey) {
-        var indices = _convertArrayByIndex(survey.formSetting.indices) || [];
+        var indicies = _convertArrayByIndex(survey.formSetting.indicies) || [];
         var nations = _convertArrayByIndex(survey.formSetting.nations) || [];
         var categories = _convertArrayByIndex(survey.formSetting.categories) || [];
         var contents = _convertArrayByIndex(survey.items.content) || [];
@@ -159,7 +159,7 @@ function _calculateResult(body, callback) {
             });
         });
 
-        _calcTotal(resultArray);
+        _calcTotal(indicies, resultArray);
 
         callback(null, {
             categories: categories,
@@ -190,16 +190,29 @@ function _sumScore(array, reply, categoryNum, nationNum) {
     return array;
 };
 
-function _calcTotal(array) {
-    for(var i = 0; i < array.length-1; i++) {
-        var nestedArray = array[i];
-        for(var j = 0; j < nestedArray.length-1; j++) {
-            _sumObject(nestedArray[nestedArray.length-1], nestedArray[j]);
-            _sumObject(array[array.length-1][j], nestedArray[j]);
+function _calcTotal(indicies, array) {
+    var maxY = array.length-1;
+    for(var i = 0; i < maxY; i++) {
+        var maxX = array[i].length-1;
+        for(var j = 0; j < maxX; j++) {
+            _fillZero(array[i][j], indicies);
+            _sumObject(array[maxY][maxX], array[i][j]);
+            _sumObject(array[i][maxX], array[i][j] );
+            _sumObject(array[maxY][j], array[i][j]);
         }
     }
 
+    return array;
 };
+
+function _fillZero(object, indicies) {
+    for( var i = 0; i < indicies.length; i++ ) {
+        if( !object[indicies[i].name] ) {
+            object[indicies[i].name] = 0;
+        }
+    }
+
+}
 
 function _sumObject(dst, src) {
     _.keys(src).forEach(function(key) {
