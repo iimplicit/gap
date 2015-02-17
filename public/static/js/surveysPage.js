@@ -40,14 +40,12 @@
             }
         }
 
+        // *** SurveyFactory.readSurvey:
+        //          this function brings one survey info from the server
+        //          unlike other methods, this method does not require token since it is needed
+        //          that anonymous users can access to this survey without tokens
         function readSurvey(surveyId) {
-            if (AuthTokenFactory.getToken()) {
-                return $http.get(API_URL + "/surveys/" + surveyId);
-            } else {
-                return $q.reject({
-                    data: "valid token required"
-                });
-            }
+            return $http.get(API_URL + "/surveys/" + surveyId);
         }
 
         function submitSurvey(surveyId, submittingResult) {
