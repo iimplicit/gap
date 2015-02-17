@@ -4,8 +4,8 @@
 (function() {
     var app = angular.module("GAP");
 
-    app.controller("surveyViewPageController", ["$injector", "$routeParams", "SurveyFactory", "$q", "$scope",
-        function($injector, $routeParams, SurveyFactory, $q, $scope) {
+    app.controller("surveyViewPageController", ["$injector", "$routeParams", "SurveyFactory", "SurveyResultFactory", "$q", "$scope", "$location",
+        function($injector, $routeParams, SurveyFactory, SurveyResultFactory, $q, $scope, $location) {
             var view = this;
 
             var surveyId = $routeParams.id;
@@ -71,6 +71,8 @@
                     if (confirm("Would you like to submit your survey?")) {
                         SurveyFactory.submitSurvey(surveyId, view.submittingItem).then(function(response) {
                             console.log("submit succesful", response);
+                            SurveyResultFactory.setResult(surveyId, response.data);
+                            $location.path("/survey/" + surveyId + "/view/result");
                         }, function(response) {
                             console.log("submit failed", response);
                         });
