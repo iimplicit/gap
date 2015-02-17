@@ -3,7 +3,7 @@
  */
 (function() {
     "use strict";
-    var app = angular.module("GAP", ["ngRoute", "ngMessages"]);
+    var app = angular.module("GAP", ["ngRoute", "ngMessages", "ngCookies"]);
 
     app.constant("API_URL", "http://localhost:3000/api");
 
@@ -39,6 +39,10 @@
                 templateUrl: 'static/pages/surveyViewPage.html',
                 controller: 'surveyViewPageController',
                 controllerAs: "view"
+            }).when('/survey/:id/view/result', {
+                templateUrl: 'static/pages/surveyResultPage.html',
+                controller: 'surveyResultPageController',
+                controllerAs: "result"
             }).when('/survey/:id/analytics', {
                 templateUrl: 'static/pages/surveyAnalyticsPage.html',
                 controller: 'surveyAnalyticsPageController'
@@ -106,6 +110,22 @@
             }
             return config;
         }
+    });
+
+    app.factory("SurveyResultFactory", function SurveyResult($cookieStore){
+        "use strict";
+        return {
+            setResult: setResult,
+            getResult: getResult
+        }
+
+        function setResult(surveyId, surveyResult) {
+            $cookieStore.put(surveyId, surveyResult);
+        }
+
+        function getResult(surveyId) {
+            return $cookieStore.get(surveyId);   
+        }               
     });
 
     app.controller("surveyEditPageController", ["$scope", "$http", "$routeParams",

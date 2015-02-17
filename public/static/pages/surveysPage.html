@@ -35,7 +35,7 @@
                         | <a href="" ng-click="copySurvey(survey)">Copy</a>
                         | <a href="{{ '/#/survey/' + survey._id + '/analytics/' }}">Analytics</a>
                       </td>
-                      <td><input type="text" class="form-control"></td>
+                      <td><input type="text" class="form-control" value="{{ 'localhost:3000/#/survey/' + survey._id + '/view/' }}"></td>
                   </tr>
               </tbody>
           </table>
