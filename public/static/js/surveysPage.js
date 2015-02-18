@@ -11,7 +11,8 @@
             readSurveys: readSurveys,
             deleteSurvey: deleteSurvey,
             readSurvey: readSurvey,
-            submitSurvey: submitSurvey
+            submitSurvey: submitSurvey,
+            downloadSurvey: downloadSurvey
         };
 
         function readSurveys() {
@@ -59,6 +60,16 @@
                 });
             }
         }
+
+        function downloadSurvey(surveyId) {
+            if (AuthTokenFactory.getToken()) {
+                return $http.get("http://localhost:3000/api/surveys/" + surveyId + "/export");
+            } else {
+                return $q.reject({
+                    data: "valid token required"
+                });
+            }
+        }
     });
 
     app.controller("surveysPageController", ["SurveyFactory", "$scope", "$window", "$http",
@@ -78,13 +89,36 @@
                 });
             }
 
-            $scope.copySurvey = function(survey){
+            $scope.copySurvey = function(survey) {
                 $http.post("http://localhost:3000/api/surveys/" + survey._id + "/copy").
-                success(function(data){
-                  $window.location.reload();
+                success(function(data) {
+                    $window.location.reload();
                 }).
-                error(function(data){
-                  console.log("error");
+                error(function(data) {
+                    console.log("error");
+                });
+            }
+
+            // *** SurveyFactory.downloadFile:
+            //          this function uses blob object to download file from the server
+            //          refer to this document for further study
+            //          downloading part comes from surveyFactory, while generating url
+            //          is done by blob object
+            //          https://developer.mozilla.org/ko/docs/Web/API/Blob
+            $scope.downloadFile = function(surveyId) {
+                SurveyFactory.downloadSurvey(surveyId).then(function(response){
+                    var file = new Blob([response.data], {
+                        type: 'application/csv'
+                    });
+                    var fileURL = URL.createObjectURL(file);
+                    var a = document.createElement('a');
+                    a.href = fileURL;
+                    a.target = '_blank';
+                    a.download = surveyId + '.csv';
+                    document.body.appendChild(a);
+                    a.click();
+                }, function(response){
+                    console.log("error", response.data);
                 });
             }
         }

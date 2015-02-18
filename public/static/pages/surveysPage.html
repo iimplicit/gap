@@ -34,6 +34,7 @@
                         | <a href="" ng-click="deleteSurvey(survey._id, $index)">Delete</a>
                         | <a href="" ng-click="copySurvey(survey)">Copy</a>
                         | <a href="{{ '/#/survey/' + survey._id + '/analytics/' }}">Analytics</a>
+                        | <a href="" ng-click="downloadFile(survey._id)">CSV Export</a>
                       </td>
                       <td><input type="text" class="form-control" value="{{ 'localhost:3000/#/survey/' + survey._id + '/view/' }}"></td>
                   </tr>
