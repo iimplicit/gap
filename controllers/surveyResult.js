@@ -196,9 +196,9 @@ function _calcTotal(indicies, array) {
         var maxX = array[i].length-1;
         for(var j = 0; j < maxX; j++) {
             _fillZero(array[i][j], indicies);
-            _sumObject(array[maxY][maxX], array[i][j]);
-            _sumObject(array[i][maxX], array[i][j] );
-            _sumObject(array[maxY][j], array[i][j]);
+            _sumObject(array[maxY][maxX], array[i][j]); // Sum Total
+            _sumObject(array[i][maxX], array[i][j] ); // Sum Categories
+            _sumObject(array[maxY][j], array[i][j]); // Sum Nations
         }
     }
 
