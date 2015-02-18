@@ -74,8 +74,12 @@
 
     app.controller("surveysPageController", ["SurveyFactory", "$scope", "$window", "$http",
         function(SurveyFactory, $scope, $window, $http) {
+            $scope.sortingOrder = "updatedAt";
+            $scope.reverse = true;
+
             SurveyFactory.readSurveys().then(function(data) {
                 $scope.surveys = data.data.surveyList;
+                console.log(data);
             }, function(response) {
                 console.log(response.data);
             });
@@ -120,6 +124,14 @@
                 }, function(response){
                     console.log("error", response.data);
                 });
+            }
+
+            $scope.sortBy = function(sortingOrder) {
+                if($scope.sortingOrder === sortingOrder) {
+                    $scope.reverse = !$scope.reverse;
+                } else {
+                    $scope.sortingOrder = sortingOrder;    
+                }
             }
         }
     ]);

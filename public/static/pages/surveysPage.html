@@ -16,25 +16,26 @@
                   <tr>
                       <th>#</th>
                       <th>Title</th>
-                      <th>Updated At</th>
-                      <th># of Responses</th>
+                      <th ng-click="sortBy('updatedAt')"><strong class="sort-button">Updated At <i class="fa fa-sort"></i></strong></th>
+                      <th ng-click="sortBy('responseCount')"><strong class="sort-button"># of Responses <i class="fa fa-sort"></i></strong></th>
                       <th>Functions</th>
                       <th>URL</th>
                   </tr>
               </thead>
               <tbody>
-                  <tr ng-repeat="survey in surveys">
+                  <tr ng-repeat="survey in surveys | orderBy:sortingOrder:reverse">
                       <td>{{ $index + 1 }}</td>
                       <td><a href="{{ '#survey/' + survey._id + '/edit/' }}">{{ survey.title }}</a></td>
                       <td>{{ survey.updatedAt | date:"short" }}</td>
-                      <td></td>
+                      <td><p class="text-primary">{{ survey.responseCount }}</p></td>
                       <td>
-                        <a href="{{ '/#/survey/' + survey._id + '/view/' }}">Live View</a>
-                        | <a href="{{ '/#/survey/' + survey._id + '/edit/' }}">Edit</a>
-                        | <a href="" ng-click="deleteSurvey(survey._id, $index)">Delete</a>
-                        | <a href="" ng-click="copySurvey(survey)">Copy</a>
-                        | <a href="{{ '/#/survey/' + survey._id + '/analytics/' }}">Analytics</a>
-                        | <a href="" ng-click="downloadFile(survey._id)">CSV Export</a>
+                        <a href="{{ '/#/survey/' + survey._id + '/edit/' }}"><i class="fa fa-pencil-square-o"></i> Edit</a>
+                        | <a href="" ng-click="deleteSurvey(survey._id, $index)"><i class="fa fa-times"></i> Delete</a>
+                        | <a href="" ng-click="copySurvey(survey)"> <i class="fa fa-files-o"></i> Copy</a>
+                        <br>
+                        <a href="{{ '/#/survey/' + survey._id + '/view/' }}"><i class="fa fa-eye"></i> Live View</a>
+                        | <a href="{{ '/#/survey/' + survey._id + '/analytics/' }}"><i class="fa fa-bar-chart"></i> Analytics</a>
+                        | <a href="" ng-click="downloadFile(survey._id)"><i class="fa fa-download"></i> CSV Export</a>
                       </td>
                       <td><input type="text" class="form-control" value="{{ 'localhost:3000/#/survey/' + survey._id + '/view/' }}"></td>
                   </tr>
