@@ -6,6 +6,8 @@
 
   app.controller("surveyNewPageController", ["$scope", "$http", "$routeParams", "$window",
         function($scope, $http, $routeParams, $window) {
+            $scope.category = "";
+
             $scope.initSurvey = function(){
               emptySurvey = {
                   formSetting: {
@@ -23,6 +25,12 @@
             }
 
             $scope.survey = $scope.initSurvey();
+
+            $scope.arrayLength = {
+                nations: $scope.survey.formSetting["nations"].length === 0,
+                categories: $scope.survey.formSetting["categories"].length === 0,
+                indicies: $scope.survey.formSetting["indicies"].length === 0
+            }
 
             $scope.addNation = function($event, nation) {
                 $event.preventDefault();
@@ -199,6 +207,10 @@
             $scope.submit = function() {
                 console.log($scope.survey);
             }
+
+            $scope.checkInput = function (inputType) {
+                return $scope.survey.formSetting[inputType].length === 0;
+            }
         }
     ]);
 
@@ -263,7 +275,6 @@
                 addingCategory.name = category;
                 addingCategory.index = $scope.survey.formSetting.categories.length;
                 $scope.category = "";
-
                 $scope.survey.formSetting.categories.push(addingCategory);
             }
 
@@ -277,7 +288,6 @@
                 addingIndex.name = index;
                 addingIndex.index = $scope.survey.formSetting.indicies.length;
                 $scope.index = "";
-
                 $scope.survey.formSetting.indicies.push(addingIndex);
             }
 
@@ -400,6 +410,8 @@
             $scope.submit = function() {
                 console.log($scope.survey);
             }
+
+
         }
     ]);
 })();
