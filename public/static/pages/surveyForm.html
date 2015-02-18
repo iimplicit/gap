@@ -16,9 +16,9 @@
         <div class="group">
         <div class="edit-box row input-group add-input-group col-xs-10 col-sm-6 col-md-6 col-lg-4">
             <span class="input-group-addon">Nation</span>
-            <input type="text" ng-model="nation" class="form-control">
+            <input type="text" ng-model="nw.nationInput" value="" class="form-control">
             <span class="input-group-btn">
-                <button class="btn btn-default btn-primary" ng-click="addNation($event, nation)">Add</button>
+                <button class="btn btn-default btn-primary" ng-click="nw.addNation(nw.nationInput)">Add</button>
             </span>
         </div>
         <ul>
@@ -33,9 +33,9 @@
         <div class="group">
         <div class="row edit-box input-group add-input-group col-xs-10 col-sm-6 col-md-6 col-lg-4">
             <span class="input-group-addon">Category</span>
-            <input type="text" ng-model="category" class="form-control">
+            <input type="text" name="categoryInput" ng-model="nw.categoryInput" class="form-control">
             <span class="input-group-btn">
-                <button class="btn btn-default btn-primary" ng-click="addCategory($event, category)">Add</button>
+                <button class="btn btn-default btn-primary" ng-click="nw.addCategory(nw.categoryInput)">Add</button>
             </span>
         </div>
         <ul>
@@ -50,9 +50,9 @@
         <div class="group">
         <div class="row edit-box input-group add-input-group col-xs-10 col-sm-6 col-md-6 col-lg-4">
             <span class="input-group-addon">Index</span>
-            <input type="text" ng-model="index" class="form-control">
+            <input type="text" ng-model="nw.indexInput" class="form-control">
             <span class="input-group-btn">
-                <button class="btn btn-default btn-primary" ng-click="addIndex($event, index)">Add</button>
+                <button class="btn btn-default btn-primary" ng-click="nw.addIndex(nw.indexInput)">Add</button>
             </span>
         </div>
         <ul>

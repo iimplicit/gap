@@ -31,7 +31,8 @@
                 controller: 'surveysPageController'
             }).when('/survey/new', {
                 templateUrl: 'static/pages/surveyNewPage.html',
-                controller: 'surveyNewPageController'
+                controller: 'surveyNewPageController',
+                controllerAs: "nw"
             }).when('/survey/:id/edit', {
                 templateUrl: 'static/pages/surveyEditPage.html',
                 controller: 'surveyEditPageController'

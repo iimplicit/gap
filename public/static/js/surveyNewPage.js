@@ -6,6 +6,8 @@
 
   app.controller("surveyNewPageController", ["$scope", "$http", "$routeParams", "$window",
         function($scope, $http, $routeParams, $window) {
+            var nw = this;
+
             $scope.initSurvey = function(){
               emptySurvey = {
                   formSetting: {
@@ -24,13 +26,13 @@
 
             $scope.survey = $scope.initSurvey();
 
-            $scope.addNation = function($event, nation) {
-                $event.preventDefault();
-                var addingNation = {};
-                addingNation.name = nation;
-                addingNation.index = $scope.survey.formSetting.nations.length;
-                $scope.nation = "";
+            $scope.categoryInput = "";
 
+            nw.addNation = function(nationInput) {
+                nw.nationInput = "";
+                var addingNation = {};
+                addingNation.name = nationInput;
+                addingNation.index = $scope.survey.formSetting.nations.length;
                 $scope.survey.formSetting.nations.push(addingNation);
             }
 
@@ -38,13 +40,11 @@
                 $scope.survey.formSetting.nations.splice($index, 1);
             }
 
-            $scope.addCategory = function($event, category) {
-                $event.preventDefault();
+            nw.addCategory = function(categoryInput) {
+                nw.categoryInput = "";
                 var addingCategory = {};
-                addingCategory.name = category;
+                addingCategory.name = categoryInput;
                 addingCategory.index = $scope.survey.formSetting.categories.length;
-                $scope.category = "";
-
                 $scope.survey.formSetting.categories.push(addingCategory);
             }
 
@@ -52,13 +52,11 @@
                 $scope.survey.formSetting.categories.splice($index, 1);
             }
 
-            $scope.addIndex = function($event, index) {
-                $event.preventDefault();
+            nw.addIndex = function(indexInput) {
+                nw.indexInput = "";
                 var addingIndex = {};
-                addingIndex.name = index;
+                addingIndex.name = indexInput;
                 addingIndex.index = $scope.survey.formSetting.indicies.length;
-                $scope.index = "";
-
                 $scope.survey.formSetting.indicies.push(addingIndex);
             }
 
