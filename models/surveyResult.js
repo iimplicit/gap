@@ -6,6 +6,15 @@ var Schema = mongoose.Schema;
 
 var ObjectId = Schema.ObjectId;
 
+/**
+ *
+ * SurveyResult schema
+ *
+ * @date: 15. 2. 19.
+ * @time: 04:30:20
+ * @author: Changwook Park ( syntaxfish@gmail.com )
+ *
+ * **/
 module.exports = (function() {
     var SurveyResult = new Schema({
         userId: ObjectId,

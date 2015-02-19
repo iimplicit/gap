@@ -11,9 +11,17 @@ var existUser= require('../lib/util').existUser;
 
 var decodeToken = require('../lib/util').decodeToken;
 
-
 var config = require('../config');
 
+/**
+ *
+ * Create Survey
+ *
+ * @date: 15. 2. 17.
+ * @time: 10:54:36
+ * @author: Changwook Park ( syntaxfish@gmail.com )
+ *
+ * **/
 exports.create = function(req, res) {
     var decodedToken = req.decodeToken;
     var body = req.body;
@@ -34,6 +42,15 @@ exports.create = function(req, res) {
     });
 };
 
+/**
+ *
+ * Read survey list
+ *
+ * @date: 15. 2. 17.
+ * @time: 10:55:04
+ * @author: Changwook Park ( syntaxfish@gmail.com )
+ *
+ * **/
 exports.readList = function(req, res) {
     var decodedToken = req.decodeToken;
     var Survey = mongoose.model('Survey');
@@ -52,6 +69,15 @@ exports.readList = function(req, res) {
     });
 };
 
+/**
+ *
+ * Read survey
+ *
+ * @date: 15. 2. 17.
+ * @time: 10:55:40
+ * @author: Changwook Park ( syntaxfish@gmail.com )
+ *
+ * **/
 exports.read = function(req, res) {
     var token = req.get('Authorization');
     var id = req.params.id;
@@ -80,6 +106,15 @@ exports.read = function(req, res) {
 
 };
 
+/**
+ *
+ * Update survey
+ *
+ * @date: 15. 2. 17.
+ * @time: 10:55:55
+ * @author: Changwook Park ( syntaxfish@gmail.com )
+ *
+ * **/
 exports.update = function(req, res) {
     var decodedToken = req.decodeToken;
     var body = req.body;
@@ -100,6 +135,15 @@ exports.update = function(req, res) {
     });
 };
 
+/**
+ *
+ * Delete survey
+ *
+ * @date: 15. 2. 17.
+ * @time: 10:56:09
+ * @author: Changwook Park ( syntaxfish@gmail.com )
+ *
+ * **/
 exports.delete = function(req, res) {
     var decodedToken = req.decodeToken;
     var surveyId = req.params.id;
@@ -117,6 +161,15 @@ exports.delete = function(req, res) {
     });
 };
 
+/**
+ *
+ * Copy survey
+ *
+ * @date: 15. 2. 17.
+ * @time: 10:56:23
+ * @author: Changwook Park ( syntaxfish@gmail.com )
+ *
+ * **/
 exports.copy = function(req, res) {
     var decodedToken = req.decodeToken;
     var surveyId = req.params.id;
@@ -156,6 +209,15 @@ exports.copy = function(req, res) {
     });
 };
 
+/**
+ *
+ * Export survey result ( csv )
+ * 
+ * @date: 15. 2. 17.
+ * @time: 10:56:36
+ * @author: Changwook Park ( syntaxfish@gmail.com )
+ *
+ * **/
 exports.exportData = function(req, res) {
     var decodedToken = req.decodeToken;
     var surveyId = req.params.id;
@@ -194,6 +256,19 @@ exports.exportData = function(req, res) {
     });
 };
 
+/**
+ *
+ * Count the number of the question and return an array for each scenario.
+ *
+ * @param {Array<Object>} contents | Scenario array
+ *
+ * @return {Array<number} questionCounts | The number of the question in the scenario array.
+ * 
+ * @date: 15. 2. 17.
+ * @time: 10:57:47
+ * @author: Changwook Park ( syntaxfish@gmail.com )
+ *
+ * **/
 function _getQuestionCounts(contents) {
     var questionCounts = [];
     for( var i = 0; i < contents.length; i++ ) {
@@ -205,7 +280,22 @@ function _getQuestionCounts(contents) {
     return questionCounts;
 };
 
+/**
+ *
+ * Create a json object in a form that can be converted into a csv.
+ *
+ * @param {Array<Object>} results | SurveyResult array
+ *
+ * @return {Array<Object>} jsonList | Json object array to convert to csv
+ *
+ * @date: 15. 2. 17.
+ * @time: 11:08:09
+ * @author: Changwook Park ( syntaxfish@gmail.com )
+ *
+ * **/
 function _convertJsonList(results) {
+    console.log(results);
+
     var survey = results[0];
     var surveyResult = results[1].result;
     var questionCounts = _getQuestionCounts(survey.items.content);

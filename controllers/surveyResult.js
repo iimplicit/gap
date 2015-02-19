@@ -10,6 +10,15 @@ var sendError = require('../lib/util').sendError;
 var decodeToken = require('../lib/util').decodeToken;
 var createAnonymouseUser = require('../lib/util').createAnonymouseUser;
 
+/**
+ *
+ * Submit survey reply ( calculate survey result and save )
+ *
+ * @date: 15. 2. 17.
+ * @time: 11:12:52
+ * @author: Changwook Park ( syntaxfish@gmail.com )
+ *
+ * **/
 exports.submit = function(req, res) {
     var body = req.body;
     var surveyId = body.surveyId = req.params.id;
@@ -118,26 +127,23 @@ exports.submit = function(req, res) {
     });
 };
 
-function _updateResponseCount(surveyId) {
-    var Survey = mongoose.model('Survey');
-    var SurveyResult = mongoose.model('SurveyResult');
-
-    SurveyResult.findOne({surveyId: surveyId}, function(err, result) {
-        if( err ) { return callback(err); }
-        if( !result ) { return callback(err); }
-        var responseCount = _.keys(result.result).length;
-
-        console.log(responseCount);
-
-        Survey.update({_id: surveyId}, {$set:{responseCount: responseCount}}, {upsert:true, safe:true});
-    });
-}
-
+/**
+ *
+ * Calculate survey result
+ *
+ * @param {Object} body | Survey reply
+ * @param {function(Error, Object)} callback | Survey result
+ * 
+ * @date: 15. 2. 17.
+ * @time: 11:15:52
+ * @author: Changwook Park ( syntaxfish@gmail.com )
+ *
+ * **/
 function _calculateResult(body, callback) {
     var Survey = mongoose.model('Survey');
 
     Survey.findOne({_id: body.surveyId}, function(err, survey) {
-        var indicies = _convertArrayByIndex(survey.formSetting.indicies) || [];
+        var indicies  = _convertArrayByIndex(survey.formSetting.indicies) || [];
         var nations = _convertArrayByIndex(survey.formSetting.nations) || [];
         var categories = _convertArrayByIndex(survey.formSetting.categories) || [];
         var contents = _convertArrayByIndex(survey.items.content) || [];
@@ -170,6 +176,20 @@ function _calculateResult(body, callback) {
     });
 };
 
+/**
+ *
+ * Create an empty two-dimensional array to store the results of the Survey
+ *
+ * @param {Number} categoryNum | Number of category
+ * @param {Number} nationNum | Number of nationNum
+ *
+ * @return {Array<Array<Object>>} result | Empty two-dimensional array
+ *
+ * @date: 15. 2. 17.
+ * @time: 11:25:46
+ * @author: Changwook Park ( syntaxfish@gmail.com )
+ *
+ * **/
 function _createResultArray(categoryNum, nationNum) {
     var result = [];
 
@@ -184,12 +204,42 @@ function _createResultArray(categoryNum, nationNum) {
     return result;
 };
 
+/**
+ *
+ * Add a reply to the specified array position
+ *
+ * @param {Array<Array<Object>>} array | Survey Result array
+ * @param {Object} reply | Survey reply score object
+ * @param {Number} categoryNum | Index of category
+ * @param {Number} nationNum | Index of nation
+ *
+ * @return {Array<Array<Object>>} array | Array of survey results added reply
+ * 
+ * @date: 15. 2. 17.
+ * @time: 11:34:23
+ * @author: Changwook Park ( syntaxfish@gmail.com )
+ *
+ * **/
 function _sumScore(array, reply, categoryNum, nationNum) {
     _sumObject(array[categoryNum][nationNum], reply);
 
     return array;
 };
 
+/**
+ *
+ * Calculate GEC scoring matrix total
+ *
+ * @param {Array<Object>} indicies | Index list
+ * @param {Array<Array<Object>>} array | Survey reusult list
+ *
+ * @return {Array<Array<Object>>} array | Calculation is completed Survey reusult list
+ *
+ * @date: 15. 2. 18.
+ * @time: 01:14:50
+ * @author: Changwook Park ( syntaxfish@gmail.com )
+ *
+ * **/
 function _calcTotal(indicies, array) {
     var maxY = array.length-1;
     for(var i = 0; i < maxY; i++) {
@@ -205,15 +255,38 @@ function _calcTotal(indicies, array) {
     return array;
 };
 
+/**
+ *
+ * Initialized to 0 the value of indicies.name property in the Object
+ *
+ * @param {Object} object | Survey result object
+ * @param {Array<Object>} indicies | Index list
+ *
+ * @date: 15. 2. 19.
+ * @time: 03:03:08
+ * @author: Changwook Park ( syntaxfish@gmail.com )
+ *
+ * **/
 function _fillZero(object, indicies) {
     for( var i = 0; i < indicies.length; i++ ) {
         if( !object[indicies[i].name] ) {
             object[indicies[i].name] = 0;
         }
     }
-
 }
 
+/**
+ *
+ * Add a property of both Object
+ *
+ * @param {Object} dst | Survey result object
+ * @param {Object} src | Survey result object
+ *
+ * @date: 15. 2. 19.
+ * @time: 03:06:01
+ * @author: Changwook Park ( syntaxfish@gmail.com )
+ *
+ * **/
 function _sumObject(dst, src) {
     _.keys(src).forEach(function(key) {
         if( dst[key] ) {
@@ -231,6 +304,17 @@ function _convertArrayByIndex(arr) {
     return arr;
 };
 
+/**
+ *
+ * Create Random id
+ *
+ * @return {String} 'an' + new Date().getTime() + uuid(5) | Random id ( Meaning of "an" , an anonymous user )
+ * 
+ * @date: 15. 2. 19.
+ * @time: 03:08:11
+ * @author: Changwook Park ( syntaxfish@gmail.com )
+ *
+ * **/
 function _createRandomId() {
     return 'an' + new Date().getTime() + uuid(5);
 };
