@@ -11,6 +11,15 @@ var sendError = require('../lib/util').sendError;
 var decodeToken = require('../lib/util').decodeToken;
 
 
+/**
+ *
+ * Create user
+ *
+ * @date: 15. 2. 19.
+ * @time: 03:10:14
+ * @author: Changwook Park ( syntaxfish@gmail.com )
+ *
+ * **/
 exports.create = function(req, res) {
     if( _.isEmpty(req.body) ) {return sendError(res, 'JSON_MISSING'); }
 
@@ -29,6 +38,15 @@ exports.create = function(req, res) {
     });
 };
 
+/**
+ *
+ * Login user
+ *
+ * @date: 15. 2. 19.
+ * @time: 03:10:27
+ * @author: Changwook Park ( syntaxfish@gmail.com )
+ *
+ * **/
 exports.login = function(req, res) {
     if( _.isEmpty(req.body) ) {return sendError(res, 'JSON_MISSING'); }
 
@@ -50,6 +68,15 @@ exports.login = function(req, res) {
         });
 };
 
+/**
+ *
+ * Delete user
+ *
+ * @date: 15. 2. 19.
+ * @time: 03:10:39
+ * @author: Changwook Park ( syntaxfish@gmail.com )
+ *
+ * **/
 exports.delete = function(req, res) {
     var user = req.decodeToken;
     var User = mongoose.model('User');
@@ -62,6 +89,15 @@ exports.delete = function(req, res) {
     });
 };
 
+/**
+ *
+ * Read user
+ *
+ * @date: 15. 2. 19.
+ * @time: 03:10:48
+ * @author: Changwook Park ( syntaxfish@gmail.com )
+ *
+ * **/
 exports.read = function(req, res) {
     var token = req.get('Authorization');
     if( !token ) { return sendError(res, 'TOKEN_MISSING'); }
@@ -79,6 +115,15 @@ exports.read = function(req, res) {
         });
 };
 
+/**
+ *
+ * Update user
+ *
+ * @date: 15. 2. 19.
+ * @time: 03:10:56
+ * @author: Changwook Park ( syntaxfish@gmail.com )
+ *
+ * **/
 exports.update = function(req, res) {
     var user = req.decodeToken;
 
@@ -101,7 +146,19 @@ exports.update = function(req, res) {
     });
 };
 
-
+/**
+ *
+ * Create Json Web Token ( JWT )
+ *
+ * @param {Object} user | User object
+ *
+ * @return {String} jwt.sign(user, secret, { expiresInMinutes: 1 }); | Json Web Token
+ * 
+ * @date: 15. 2. 19.
+ * @time: 03:11:06
+ * @author: Changwook Park ( syntaxfish@gmail.com )
+ *
+ * **/
 function _createToken(user) {
     if( user.password ) { delete user.password; }
 
