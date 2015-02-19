@@ -294,8 +294,6 @@ function _getQuestionCounts(contents) {
  *
  * **/
 function _convertJsonList(results) {
-    console.log(results);
-
     var survey = results[0];
     var surveyResult = results[1].result;
     var questionCounts = _getQuestionCounts(survey.items.content);
