@@ -7,7 +7,254 @@
       </div>
   </div>
   <div ng-form="surveyNewForm" name="surveyNewForm">
-      <div class="row" ng-include="'static/pages/surveyForm.html'" >
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 well">
+            <div id="survey-form">
+                <!-- Survey Basic Info -->
+                <div class="row">
+                    <label for=""><h3>Survey Title</h3></label>
+                    <input type="text" name="surveyTitle" class="form-control" ng-model="survey.title" placeholder="Survey Title" ng-required="!survey.title" ng-class="{'input-warning': !survey.title}">
+                    <div ng-messages="surveyNewForm.surveyTitle.$error">
+                        <div ng-message="required">
+                            <p class="text-danger">* required</p>
+                        </div>
+                    </div>
+                    <br>
+
+                </div>
+                <div class="row">
+                    <label for=""><h3>Survey Description</h3></label>
+                    <textarea class="form-control" name="surveyDescription" ng-model="survey.description" rows="3" placeholder="Survey Description"></textarea>
+                    <br>
+                </div>
+
+                <!-- Nations -->
+                <div class="group">
+                <div class="edit-box row input-group add-input-group col-xs-10 col-sm-6 col-md-6 col-lg-4">
+                    <span class="input-group-addon">Nation</span>
+                    <input type="text" name="nation" ng-model="nation" ng-required="checkInput('nations')" ng-class="{'input-warning': checkInput('nations'), 'has-error' : checkInput('nations')}" class="form-control" minlength="1" >
+                    <span class="input-group-btn">
+                        <button class="btn btn-default btn-primary" ng-click="addNation($event, nation)">Add</button>
+                    </span>
+                </div>
+                <div ng-if="survey.formSetting['nations'].length === 0">
+                    <p class="text-danger">* required</p>
+                </div>
+                <ul>
+                    <li ng-repeat="nation in survey.formSetting.nations"  class="btn btn-success">
+                        {{ nation.name }}
+                        <span class="label label-danger" ng-click="removeNation($index)">x</span>
+                    </li>
+                </ul>
+                </div>
+                <div class="clear-float"></div>
+                <!-- Categories -->
+                <div class="group">
+                <div class="row edit-box input-group add-input-group col-xs-10 col-sm-6 col-md-6 col-lg-4">
+                    <span class="input-group-addon">Category</span>
+                    <input type="text" ng-model="category" name="category" class="form-control" ng-required="checkInput('categories')" ng-class="{'input-warning': checkInput('categories')}">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default btn-primary" ng-click="addCategory($event, category)">Add</button>
+                    </span>
+
+                </div>
+                <div ng-if="survey.formSetting['categories'].length === 0">
+                    <p class="text-danger">* required</p>
+                </div>
+                <ul>
+                    <li ng-repeat="category in survey.formSetting.categories" class="btn btn-success">
+                        {{ category.name }}
+                        <span class="label label-danger" ng-click="removeCategory($index)">x</span>
+                    </li>
+                </ul>
+                </div>
+                <div class="clear-float"></div>
+                <!-- Indicies -->
+                <div class="group">
+                <div class="row edit-box input-group add-input-group col-xs-10 col-sm-6 col-md-6 col-lg-4">
+                    <span class="input-group-addon">Index</span>
+                    <input type="text" ng-model="index" class="form-control" name="index" ng-required="checkInput('indicies')" ng-class="{'input-warning': checkInput('indicies')}">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default btn-primary" ng-click="addIndex($event, index)">Add</button>
+                    </span>
+                </div>
+                <div ng-if="survey.formSetting['indicies'].length === 0">
+                    <p class="text-danger">* required</p>
+                </div>
+                <ul>
+                    <li ng-repeat="index in survey.formSetting.indicies" class="btn btn-success">
+                        {{ index.name }}
+                        <span class="label label-danger" ng-click="removeIndex($index)">x</span>
+                    </li>
+                </ul>
+                </div>
+                <div class="clear-float"></div>
+            <!--</form>--></div>
+
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 well other-area">
+            <div class="row ng-scope">
+                <h3 class="survey-subtitle">Pre-survey: Demographic Info.</h3>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <select class="form-control" ng-init="selectedInputType=inputTypes[0]" ng-options="inputType.value for inputType in inputTypes track by inputType.value" ng-model="selectedInputType" name="demographicSelect" ng-required="!selectedInputType" ng-class="{'has-error': !selectedInputType}"></select>
+                    <div ng-messages="surveyNewForm.demographicSelect.$error">
+                        <div ng-message="required" class="pull-left">
+                            <p class="text-danger">* required</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <button class="btn btn-primary" ng-click="addDemoQuestion(selectedInputType.value)">Add Question</button>
+                </div>
+            </div>
+            <form action="">
+                <div ng-repeat="item in survey.items.demographic" class="field-item well">
+                    <div class="field-wrapper">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Question #{{ $index + 1 }}</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div ng-switch="item.type">
+                                    <div ng-switch-when="text">
+                                        <label for="">Question for text type answers:</label>
+                                        <input type="text" class="form-control" placeholder="Question for text type answers" ng-model="item.question">
+                                    </div>
+                                    <div ng-switch-when="textarea">
+                                        <label for="">Question for long text type answers:</label>
+                                        <input type="text" class="form-control" placeholder="Question for long text type answers" ng-model="item.question">
+                                    </div>
+                                    <div ng-switch-when="url">
+                                        <label for="">Question for url type answers:</label>
+                                        <input type="text" class="form-control" placeholder="Question for url type answers" ng-model="item.question">
+                                    </div>
+                                    <div ng-switch-when="email">
+                                        <label for="">Question for email type answers:</label>
+                                        <input type="text" class="form-control" placeholder="Question for email type answers" ng-model="item.question">
+                                    </div>
+                                    <div ng-switch-when="date">
+                                        <label for="">Question for date type answers:</label>
+                                        <input type="text" class="form-control" placeholder="Question for date type answers" ng-model="item.question">
+                                    </div>
+                                    <div ng-switch-when="select">
+                                        <label for="">Add Select Options:</label>
+                                        <input type="text" ng-model="addingOption">
+                                        <button class="btn btn-pri btn-sm" ng-click="addOption(addingOption, $index, $event)">Add Option</button>
+                                        <ul>
+                                            <li ng-repeat="option in item.options">
+                                                <span class="label label-primary">{{ option }}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div ng-switch-when="checkbox">
+                                        <label for="">Add Checkbox Options:</label>
+                                        <input type="text" ng-model="addingOption">
+                                        <button class="btn btn-pri btn-sm" ng-click="addOption(addingOption, $index, $event)">Add Option</button>
+                                        <ul>
+                                            <li ng-repeat="option in item.options">
+                                                <span class="label label-primary">{{ option }}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="options">
+                                        <label>
+                                        <input type="checkbox" ng-model="item.required">  Required
+                                        <br>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 well other-area">
+            <div class="row ng-scope">
+                <h3 class="survey-subtitle">Question Fields</h3>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <select class="form-control" name="questionSelect" ng-init="selectedFieldType=fieldTypes[0]" ng-model="selectedFieldType" ng-required="!selectedFieldType" ng-class="{'has-error': !selectedFieldType}"  ng-options="fieldType.value for fieldType in fieldTypes track by fieldType.value"></select>
+                    <div ng-messages="surveyNewForm.questionSelect.$error">
+                        <div ng-message="required" class="pull-left">
+                            <p class="text-danger">* required</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <button class="btn btn-default btn-primary" ng-click="addFieldType(selectedFieldType.value)">Add Field</button>
+                </div>
+                <div ng-repeat="item in survey.items.content" class="well">
+                  <div >
+                    <h3>{{ item.type }} Question</h3>
+                      <div class="row">
+                      <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                        <textarea class="form-control" ng-model="item.scenario" name="itemScenario" ></textarea>
+                          <!--<div ng-messages="surveyNewForm.itemScenario.$error">-->
+                              <!--<div ng-message="required" class="pull-left">-->
+                                  <!--<p class="text-danger">* This field is required</p>-->
+                              <!--</div>-->
+                          <!--</div>-->
+                      </div>
+                      </div>
+                      <div class="row">
+                      <div class="select-group col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        nation : <select class="form-control" name="nationSelect"  ng-required="!item.nation" ng-class="{'has-error': !item.nation}" ng-options="nation.name for nation in survey.formSetting.nations track by nation.name" ng-model="item.nation"></select>
+                          <div ng-messages="surveyNewForm.nationSelect.$error">
+                              <div ng-message="required" >
+                                  <p class="text-danger">* required</p>
+                              </div>
+                          </div>
+                        category : <select class="form-control" name="categorySelect"  ng-required="!item.category" ng-class="{'has-error': !item.category}" ng-options="category.name for category in survey.formSetting.categories track by category.name" ng-model="item.category"></select>
+                          <div ng-messages="surveyNewForm.categorySelect.$error">
+                              <div ng-message="required" >
+                                  <p class="text-danger">* required</p>
+                              </div>
+                          </div>
+                      </div>
+                      </div>
+                    <button type="button" class="btn btn-default btn-danger" ng-click="removeField($index)">Remove Field</button>
+                    <button type="button" class="btn btn-default btn-primary" ng-click="addQuestion(item)">Add Question</button>
+                    <hr class="dashed-hr">
+                      <div ng-repeat="question in item.questions" class="well">
+                      <table class="grid-table">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th class="text-center" ng-repeat="response in question.responses">
+                                <input type="text" ng-model="response.name" class="form-control">
+                                <span class="label label-danger" ng-click="removeResponse(question, $index)">x</span>
+                            </th>
+                            <th>
+                                <input class="form-control" type="text" ng-model="new" ng-click="addResponse(question)">
+                                <span class="label"> </span>
+                            </th>
+                          </tr>
+                         </thead>
+                         <tbody>
+                           <tr>
+                             <td><input type="text" name="" id="" value="" ng-model="question.question" class="form-control"/></td>
+                             <td class="text-center" ng-repeat="response in question.responses"><input type="radio" name="" id="" value="" /></td>
+                           </tr>
+                           <tr ng-repeat="index in survey.formSetting.indicies">
+                             <td>{{ index.name }}</td>
+                             <td ng-repeat="response in question.responses"><input type="number" ng-model="score" ng-change="addScore(response, index.name, score)"></td>
+                           </tr>
+                           <tr>
+                               <td><input type="checkbox" ng-model="question.required"><label>&nbsp;&nbsp;Required</label></td>
+                           </tr>
+                         </tbody>
+                      </table>
+                      <button type="button" class="btn btn-default btn-danger" ng-click="removeQuestion(item, $index)">Remove Question</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <pre>{{ survey | json }}</pre>
+
       </div>
 
       <div class="row">
