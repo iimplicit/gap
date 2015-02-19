@@ -41,6 +41,9 @@
   .clear-float {
     clear: both;
   }
+  div p{
+    margin-left: 10px;
+  }
 }
 
 .survey-subtitle {
@@ -67,3 +70,8 @@ div.select-group {
   border-top: 2px dashed #d4d2e8;
 }
 
+div.other-area {
+  div p {
+    margin-left: 15px;
+  }
+}
