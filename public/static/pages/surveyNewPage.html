@@ -52,7 +52,7 @@
                 <div class="group">
                 <div class="row edit-box input-group add-input-group col-xs-10 col-sm-6 col-md-6 col-lg-4">
                     <span class="input-group-addon">Category</span>
-                    <input type="text" ng-model="category" name="category" class="form-control" ng-required="!category" ng-class="{'input-warning': checkInput('categories')}">
+                    <input type="text" ng-model="category" name="category" class="form-control" ng-required="checkInput('categories')" ng-class="{'input-warning': checkInput('categories')}">
                     <span class="input-group-btn">
                         <button class="btn btn-default btn-primary" ng-click="addCategory($event, category)">Add</button>
                     </span>
@@ -73,7 +73,7 @@
                 <div class="group">
                 <div class="row edit-box input-group add-input-group col-xs-10 col-sm-6 col-md-6 col-lg-4">
                     <span class="input-group-addon">Index</span>
-                    <input type="text" ng-model="index" class="form-control" name="index" ng-required="!index" ng-class="{'input-warning': checkInput('indicies')}">
+                    <input type="text" ng-model="index" class="form-control" name="index" ng-required="checkInput('indicies')" ng-class="{'input-warning': checkInput('indicies')}">
                     <span class="input-group-btn">
                         <button class="btn btn-default btn-primary" ng-click="addIndex($event, index)">Add</button>
                     </span>
