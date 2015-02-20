@@ -55,6 +55,7 @@ exports.submit = function(req, res) {
         },
         function saveResultOnSurey(userId, result, callback) {
             var SurveyResult = mongoose.model('SurveyResult');
+            result.demographic = body.demographic;
 
             SurveyResult.findOne({surveyId: surveyId}, function(err, model) {
                 if(model === null) {
