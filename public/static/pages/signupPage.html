@@ -1,48 +1,66 @@
-<div class="container">
-  <div class="row">
-  <div class="xs-hidden col-sm-2 col-md-3 col-lg-3"></div>
-  <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
-      <div id="signin-form" class="signup-form">
-          <form id="signupForm" class="form-horizontal ng-pristine ng-valid" ng-submit="cr.userSignup(cr.username, cr.password, cr.email)">
-              <legend>Sign up</legend>
-              <div class="text-input input-area">
-                  <div class="thumbnail-image" id="email-thumbnail-image"></div>
-                  <input type="email" name="email" class="form-control" id="inputEmail" minlength="4" maxlength="20" required placeholder="Email" ng-model="cr.email">
-                  <div ng-messages="signupForm.email.$error" ng-messages-multiple>
-                      <div ng-message="required">This field is required</div>
-                      <div ng-message="minlength">Input too short</div>
-                      <div ng-message="email">This field must be an email</div>
+<!-- header -->
+<div ng-include="'/static/pages/partial/header.html'"></div>
+
+<div id="signup">
+    <div class="container">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="wrapper clearfix">
+                  <div class="formy">
+                      <div class="row" id="signin-form">
+                          <div class="col-md-12">
+                              <form id="signupForm" class="form-horizontal ng-pristine ng-valid" ng-submit="cr.userSignup(cr.username, cr.password, cr.email)">
+
+                                <!-- input:email -->
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" name="email" class="form-control" id="inputEmail" minlength="4" maxlength="20" required placeholder="Email" ng-model="cr.email">
+
+                                      <div ng-messages="signupForm.email.$error" ng-messages-multiple>
+                                          <div ng-message="required">This field is required</div>
+                                          <div ng-message="minlength">Input too short</div>
+                                          <div ng-message="email">This field must be an email</div>
+                                      </div>
+                                </div>
+
+                                <!-- input:username -->
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input type="text" name="username" class="form-control" id="inputName" required minlength="4" maxlength="10" placeholder="Name" ng-model="cr.username">
+
+                                      <div ng-messages="signupForm.username.$error" ng-messages-multiple>
+                                          <div ng-message="required">This field is required</div>
+                                          <div ng-message="minlength">Input too short</div>
+                                      </div>
+                                </div>
+
+                                <!-- input:password -->
+                                <div class="form-group">
+                                    <label for="password">password</label>
+                                    <input type="password" name="password" class="form-control" ng-model="cr.password" minlength="4" maxlength="12" required placeholder="password">
+
+                                      <div ng-messages="signupForm.password.$error"  ng-messages-multiple>
+                                          <div ng-message="required">This field is required</div>
+                                          <div ng-message="minlength">Input too short</div>
+                                      </div>
+                                </div>
+
+                                  <div class="form-group action">
+                                      <button type="submit" class="btn btn-primary">Submit</button>
+                                  </div>
+                              </form>
+
+
+                          </div>
+                      </div>
                   </div>
               </div>
-              <div class="text-input input-area">
-                  <div class="thumbnail-image"></div>
-                  <input type="text" name="username" class="form-control" id="inputName" required minlength="4" maxlength="10" placeholder="Name" ng-model="cr.username">
-                  <div ng-messages="signupForm.username.$error" ng-messages-multiple>
-                      <div ng-message="required">This field is required</div>
-                      <div ng-message="minlength">Input too short</div>
-                  </div>
-              </div>
-              <div class="password-input input-area">
-                  <div class="thumbnail-image"></div>
-                  <input type="password" name="password" class="form-control" ng-model="cr.password" minlength="4" maxlength="12" required placeholder="password">
-                  <div ng-messages="signupForm.password.$error"  ng-messages-multiple>
-                      <div ng-message="required">This field is required</div>
-                      <div ng-message="minlength">Input too short</div>
-                  </div>
-              </div>
-              <div class="form-group action">
-                  <button id="goBack" type="reset" class="btn btn-default">Cancel</button>
-                  <button type="submit" class="btn btn-primary">Submit</button>
-              </div>
-          </form>
+          </div>
+
+
       </div>
-  <div class="xs-hidden col-sm-2 col-md-3 col-lg"></div>
-  </div>
-  </div>
+    </div>
 </div>
 
-<script>
-    $('#goBack').click(function () {
-        window.location.href = '../#/signin';
-    });
-</script>
+<!-- footer -->
+<div ng-include="'/static/pages/partial/footer.html'"></div>

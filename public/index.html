@@ -1,122 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>GAP - Global Assessment Platform</title>
 
-<head>
-    <meta charset="UTF-8">
-    <title>GAP</title>
-    <link rel="stylesheet" href="./static/dist/bootstrap-flat.min.css">
-    <link rel="stylesheet" href="./static/css/common.css">
-    <link rel="stylesheet" href="./static/css/signinPage.css">
-    <link rel="stylesheet" href="./static/css/signupPage.css">
-    <link rel="stylesheet" href="./static/css/surveynewPage.css">
-    <link rel="stylesheet" href="./static/css/landingPage.css" />
-    <link rel="stylesheet" href="./static/css/surveysPage.css">
-    <link rel="stylesheet" href="./static/css/surveyResultPage.css">
-    <!--<link href="carousel.css" rel="stylesheet">-->
-    <link rel="stylesheet" href="./bower_components/font-awesome/css/font-awesome.min.css">
-</head>
+        <!-- theme:stylesheets -->
+        <link rel="stylesheet"  href="./static/css/compiled/theme.css">
+        <link rel="stylesheet"  href="./static/css/vendor/animate.css">
 
-<body ng-app="GAP">
-    <header class="header navbar navbar-default navbar-static-top" ng-controller="navbarController as nav" id="header">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="/#/" class="navbar-brand">GAP</a>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav" ng-show="nav.username">
-                    <li class="dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-cog"></i> Dashboard <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="/#/surveys/">Surveys</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="/#/survey/new/">Create Survey</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="http://slides.com/dobestan/gap/fullscreen" target="_blank">Presentation</a></li>
-                </ul>
+        <!-- bower:stylesheets -->
+        <link rel="stylesheet" href="./bower_components/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
 
-                <ul class="nav navbar-nav navbar-right" ng-show="!nav.username">
-                    <li><a href="/#/signin/">Signin</a>
-                    </li>
-                </ul>
+        <!-- custom:stylesheets -->
+        <link rel="stylesheet" href="./static/css/common.css">
+        <link rel="stylesheet" href="./static/css/signinPage.css">
+        <link rel="stylesheet" href="./static/css/signupPage.css">
+        <link rel="stylesheet" href="./static/css/surveynewPage.css">
+        <link rel="stylesheet" href="./static/css/landingPage.css" />
+        <link rel="stylesheet" href="./static/css/surveysPage.css">
+        <link rel="stylesheet" href="./static/css/surveyResultPage.css">
 
-                <ul class="nav navbar-nav navbar-right" ng-show="nav.username">
-                    <li class="dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Welcome, {{ nav.username }} <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="">User Profile</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="" ng-click="nav.userSignout()">Sign-out</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </header>
+        <!--[if lt IE 9]>
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </head>
+    <body ng-app="GAP" id="home">
+        <ng-view></ng-view>
 
-    <ng-view></ng-view>
+        <!-- scripts:bower -->
+        <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="./bower_components/angular/angular.min.js"></script>
+        <script src="./bower_components/angular-route/angular-route.min.js"></script>
+        <script src="./bower_components/angular-messages/angular-messages.min.js"></script>
+        <script src="./bower_components/angular-cookies/angular-cookies.min.js"></script>
+        <script src="./bower_components/highcharts-release/highcharts.js"></script>
+        <script src="./bower_components/highcharts-release/highcharts-more.js"></script>
+        <script src="./bower_components/highcharts-release/modules/exporting.js"></script>
 
-        <!-- Container reserved for later use -->
-        <!-- <div class="container">
-            <footer>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <ul class="list-unstyled">
-                            <li class="pull-right"><a href="">Back to top</a>
-                            </li>
-                            <li><a href="">Service</a>
-                            </li>
-                            <li><a href="">Team</a>
-                            </li>
-                            <li><a href="">Blog</a>
-                            </li>
-                        </ul>
-                        <p>Made by <a href="" rel="nofollow">GAP</a>. Contact us at
-                            <a href=""></a>.</p>
-                        <p>Based on <a href="http://bootswatch.com/flatly/" rel="nofollow">Bootswatch Flatly</a>.</p>
-                    </div>
-                </div>
-            </footer>
-        </div> -->
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="container">
-            <p class="pull-right"><a href="">Back to top</a>
-            </p>
-            <p>© 2014 Company, Inc. · <a href="">Privacy</a> · <a href="">Terms</a>
-            </p>
-        </div>
-    </footer>
-
-    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="./bower_components/angular/angular.min.js"></script>
-    <script src="./bower_components/angular-route/angular-route.min.js"></script>
-    <script src="./bower_components/angular-messages/angular-messages.min.js"></script>
-    <script src="./bower_components/angular-cookies/angular-cookies.min.js"></script>
-    <script src="./bower_components/highcharts-release/highcharts.js"></script>
-    <script src="./bower_components/highcharts-release/highcharts-more.js"></script>
-    <script src="./bower_components/highcharts-release/modules/exporting.js"></script>
-    <script src="./static/js/common.js"></script>
-    <script src="./static/js/app.js"></script>
-    <script src="./static/js/surveysPage.js"></script>
-    <script src="./static/js/surveyNewPage.js"></script>
-    <script src="./static/js/signinPage.js"></script>
-    <script src="./static/js/signupPage.js"></script>
-    <script src="./static/js/surveyViewPage.js"></script>
-    <script src="./static/js/surveyResultPage.js"></script>
-    <script src="./static/js/include.js"></script>
-</body>
-
+        <!-- scripts:custom -->
+        <script src="./static/js/common.js"></script>
+        <script src="./static/js/app.js"></script>
+        <script src="./static/js/surveysPage.js"></script>
+        <script src="./static/js/surveyNewPage.js"></script>
+        <script src="./static/js/signinPage.js"></script>
+        <script src="./static/js/signupPage.js"></script>
+        <script src="./static/js/surveyViewPage.js"></script>
+        <script src="./static/js/surveyResultPage.js"></script>
+        <script src="./static/js/include.js"></script>
+    </body>
 </html>
