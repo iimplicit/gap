@@ -1,35 +1,35 @@
-#signupForm {
-
-  legend {
-    text-align: center;
-    font-size: 25px;
-    line-height: inherit;
-    color: #55d6b6;
-    margin: 5% 0;
-  }
-
-  #email-thumbnail-image {
-    background-image: url('../img/email_icon.png');
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center center;
-    height: 52px;
-    width: 15%;
-    margin: 1px 0;
-    box-sizing: border-box;
-    display: inline-block;
-  }
-
-  & > .form-horizontal {
-    margin: 10px 10%;
-  }
-  & > .form-group {
-    margin: 10px 10%;
-  }
-  .btn-primary{
-    background-color: #FFA200;
-    border-color: #FFA200;
-  }
-
-}
-
+// #signupForm {
+//
+//   legend {
+//     text-align: center;
+//     font-size: 25px;
+//     line-height: inherit;
+//     color: #55d6b6;
+//     margin: 5% 0;
+//   }
+//
+//   #email-thumbnail-image {
+//     background-image: url('../img/email_icon.png');
+//     background-repeat: no-repeat;
+//     background-size: contain;
+//     background-position: center center;
+//     height: 52px;
+//     width: 15%;
+//     margin: 1px 0;
+//     box-sizing: border-box;
+//     display: inline-block;
+//   }
+//
+//   & > .form-horizontal {
+//     margin: 10px 10%;
+//   }
+//   & > .form-group {
+//     margin: 10px 10%;
+//   }
+//   .btn-primary{
+//     background-color: #FFA200;
+//     border-color: #FFA200;
+//   }
+//
+// }
+//
