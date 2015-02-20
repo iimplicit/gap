@@ -26,4 +26,9 @@ footer {
 #signup div.wrapper {
   margin-top: 85px; }
 
+#header.gap-header-inverse {
+  background-color: #355069;
+  padding: 10px 0px;
+  margin-bottom: 30px; }
+
 /*# sourceMappingURL=common.css.map */
