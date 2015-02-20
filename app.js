@@ -19,7 +19,6 @@ var expressJWT = require('express-jwt');
 
 var sendError = require('./lib/util').sendError;
 
-
 // view engine setup
 global.publicpath = __dirname+'/public/';
 app.set('views', path.join(__dirname, 'public'));
@@ -32,9 +31,13 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// User CORS
 app.use(cors());
+
+// Use JsonWebTokn ( JWT )
 app.use(expressJWT({ secret: config.jwt.secret}).unless({path: ['/api/login','/api/users', new RegExp('^/api/surveys'), new RegExp('^/api/surveys/submit')]}));
 
+// Route
 app.use('/', routes);
 app.use('/users', users);
 app.use('/api', api);

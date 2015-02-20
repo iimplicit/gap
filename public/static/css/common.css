@@ -15,4 +15,20 @@ footer {
   cursor: default;
   border: 2px solid #e74c3c !important; }
 
+.input-warning {
+  border: 2px solid #e74c3c !important; }
+
+#signup {
+  top: -60px;
+  position: relative;
+  height: 500px; }
+
+#signup div.wrapper {
+  margin-top: 85px; }
+
+#header.gap-header-inverse {
+  background-color: #355069;
+  padding: 10px 0px;
+  margin-bottom: 30px; }
+
 /*# sourceMappingURL=common.css.map */

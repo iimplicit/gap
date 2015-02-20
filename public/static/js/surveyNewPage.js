@@ -197,6 +197,10 @@
             $scope.submit = function() {
                 console.log($scope.survey);
             }
+
+            $scope.checkInput = function (inputType) {
+                return $scope.survey.formSetting[inputType].length === 0;
+            }
         }
     ]);
 
@@ -261,7 +265,6 @@
                 addingCategory.name = category;
                 addingCategory.index = $scope.survey.formSetting.categories.length;
                 $scope.category = "";
-
                 $scope.survey.formSetting.categories.push(addingCategory);
             }
 
@@ -275,7 +278,6 @@
                 addingIndex.name = index;
                 addingIndex.index = $scope.survey.formSetting.indicies.length;
                 $scope.index = "";
-
                 $scope.survey.formSetting.indicies.push(addingIndex);
             }
 
@@ -398,6 +400,8 @@
             $scope.submit = function() {
                 console.log($scope.survey);
             }
+
+
         }
     ]);
 })();

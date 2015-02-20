@@ -15,4 +15,7 @@ footer {
   cursor: default;
   border: 2px solid #e74c3c !important; }
 
+.input-warning {
+  border: 2px solid #e74c3c !important; }
+
 /*# sourceMappingURL=common.css.map */

@@ -26,6 +26,8 @@
   margin-bottom: 20px; }
 #survey-form .clear-float {
   clear: both; }
+#survey-form div p {
+  margin-left: 1-px; }
 
 .survey-subtitle {
   margin: 10px 5px; }
@@ -43,5 +45,8 @@ div.select-group {
 
 .dashed-hr {
   border-top: 2px dashed #d4d2e8; }
+
+div.other-area div p {
+  margin-left: 15px; }
 
 /*# sourceMappingURL=surveynewPage.css.map */

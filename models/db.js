@@ -5,7 +5,15 @@ var mongoose = require('mongoose');
 var dbURI = require('../config').mongodb.dbURI;
 var logger = require('../lib/logger');
 
-
+/**
+ *
+ * Wrapper of MongoDB
+ * 
+ * @date: 15. 2. 19.
+ * @time: 04:30:57
+ * @author: Changwook Park ( syntaxfish@gmail.com )
+ *
+ * **/
 module.exports = (function() {
     logger.info('Try connect Mongodb : ' + dbURI);
 
