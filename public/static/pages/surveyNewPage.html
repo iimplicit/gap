@@ -34,7 +34,7 @@
                 <div class="group">
                 <div class="edit-box row input-group add-input-group col-xs-10 col-sm-6 col-md-6 col-lg-4">
                     <span class="input-group-addon">Nation</span>
-                    <input type="text" name="nation" ng-model="nation" ng-required="checkInput('nations')" ng-class="{'input-warning': checkInput('nations'), 'has-error' : checkInput('nations')}" class="form-control" minlength="1" >
+                    <input type="text" name="nation" ng-model="nation" ng-required="checkInput('nations')" ng-class="{'input-warning': checkInput('nations')}" class="form-control" minlength="1" >
                     <span class="input-group-btn">
                         <button class="btn btn-default btn-primary" ng-click="addNation($event, nation)">Add</button>
                     </span>
