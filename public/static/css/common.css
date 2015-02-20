@@ -18,4 +18,12 @@ footer {
 .input-warning {
   border: 2px solid #e74c3c !important; }
 
+#signup {
+  top: -60px;
+  position: relative;
+  height: 500px; }
+
+#signup div.wrapper {
+  margin-top: 85px; }
+
 /*# sourceMappingURL=common.css.map */
