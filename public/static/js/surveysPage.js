@@ -51,7 +51,7 @@
 
         function submitSurvey(surveyId, submittingResult) {
             if (AuthTokenFactory.getToken()) {
-                return $http.post("http://gap.geec.info:3000/api/surveys/submit/" + surveyId, submittingResult).then(function success(response) {
+                return $http.post("http://dev.geec.info:3000/api/surveys/submit/" + surveyId, submittingResult).then(function success(response) {
                     return response;
                 });
             } else {
@@ -63,7 +63,7 @@
 
         function downloadSurvey(surveyId) {
             if (AuthTokenFactory.getToken()) {
-                return $http.get("http://gap.geec.info:3000/api/surveys/" + surveyId + "/export");
+                return $http.get("http://dev.geec.info:3000/api/surveys/" + surveyId + "/export");
             } else {
                 return $q.reject({
                     data: "valid token required"
@@ -94,7 +94,7 @@
             }
 
             $scope.copySurvey = function(survey) {
-                $http.post("http://gap.geec.info:3000/api/surveys/" + survey._id + "/copy").
+                $http.post("http://dev.geec.info:3000/api/surveys/" + survey._id + "/copy").
                 success(function(data) {
                     $window.location.reload();
                 }).
