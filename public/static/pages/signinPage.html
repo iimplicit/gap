@@ -1,35 +1,60 @@
-<div class="container">
-  <div class="row">
-      <div class="xs-hidden col-sm-2 col-md-3 col-lg-3"></div>
-      <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
-          <div id="signin-form">
-              <form name="signinForm" ng-submit="vm.userSignin(vm.username, vm.password)">
-                  <div class="logo text-center">
-                      <img id="logo-img" src="./static/img/icon_serviceLogo.png"/>
-                  </div>
-                <div class="text-input input-area">
-            <div class="thumbnail-image"></div>
-                  <input type="text" name="username" ng-model="vm.username" minlength="4" maxlength="10" required placeholder="please enter your name">
-                <div ng-messages="signinForm.username.$error" ng-messages-multiple>
-                    <div ng-message="required">This field is required</div>
-                    <div ng-message="minlength">Input too short</div>
-                </div>
-                </div>
-                <div class="password-input input-area">
-                  <div class="thumbnail-image"></div>
-                  <input type="password" ng-model="vm.password" minlength="4" maxlength="12" required placeholder="please enter your password">
-                    <div ng-messages="signinForm.password.$error"  ng-messages-multiple>
-                        <div ng-message="required">This field is required</div>
-                        <div ng-message="minlength">Input too short</div>
-                    </div>
-                </div>
-                  <input type="submit" class="btn btn-primary btn-action" value="Sign-in">
-              </form>
-              <a href="../#/signup" class="btn btn-default btn-action">Sign-up</a>
-              <a hre-3f="#" class="action">Did you forget your password?</a>
-          </div>
-      </div>
+<!-- header -->
+<div ng-include="'/static/pages/partial/header.html'"></div>
 
-      <div class="xs-hidden col-sm-2 col-md-3 col-lg"></div>
-  </div>
+<div id="signup">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="wrapper clearfix">
+					<div class="formy">
+						<div class="row" id="signin-form">
+							<div class="col-md-12">
+                                <form name="signinForm" ng-submit="vm.userSignin(vm.username, vm.password)">
+
+                                    <!-- input:email -->
+							  		<div class="form-group">
+                                        <label for="text">Username</label>
+                                        <input type="text" class="form-control" id="username" name="username" ng-model="vm.username" minlength="4" maxlength="10" required placeholder="please enter your name">
+
+                                        <div ng-messages="signinForm.username.$error" ng-messages-multiple>
+                                            <div ng-message="required">This field is required</div>
+                                            <div ng-message="minlength">Input too short</div>
+                                        </div>
+							  		</div>
+
+                                    <!-- input:password -->
+							  		<div class="form-group">
+							    		<label for="password">Password</label>
+                                        <input type="password" class="form-control" id="password" ng-model="vm.password" minlength="4" maxlength="12" required placeholder="please enter your password">
+
+                                        <div ng-messages="signinForm.password.$error"  ng-messages-multiple>
+                                            <div ng-message="required">This field is required</div>
+                                            <div ng-message="minlength">Input too short</div>
+                                        </div>
+							  		</div>
+
+							  		<div class="checkbox">
+							    		<label>
+							      			<input type="checkbox"> Remember me
+							    		</label>
+							  		</div>
+							  		<div class="submit">
+                                        <button type="submit" class="btn btn-default">Sign In</button>
+							  		</div>
+								</form>
+
+							</div>
+						</div>						
+					</div>
+				</div>
+				<div class="already-account">
+					Don't have an account?
+					<a href="/#/signup">Create one here</a>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+
+<!-- footer -->
+<div ng-include="'/static/pages/partial/footer.html'"></div>
