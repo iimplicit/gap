@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AACE,aAAI;EACF,MAAM,EAAE,KAAK;EACb,KAAK,EAAE,GAAG",
+"sources": ["../sass/surveyResultPage.scss"],
+"names": [],
+"file": "surveyResultPage.css"
+}
