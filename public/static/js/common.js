@@ -35,7 +35,8 @@
                 controllerAs: "nw"
             }).when('/survey/:id/edit', {
                 templateUrl: 'static/pages/surveyEditPage.html',
-                controller: 'surveyEditPageController'
+                controller: 'surveyEditPageController',
+                controllerAs: 'ed'
             }).when('/survey/:id/view', {
                 templateUrl: 'static/pages/surveyViewPage.html',
                 controller: 'surveyViewPageController',

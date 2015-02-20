@@ -26,8 +26,6 @@
 
             $scope.survey = $scope.initSurvey();
 
-            $scope.categoryInput = "";
-
             nw.addNation = function(nationInput) {
                 nw.nationInput = "";
                 var addingNation = {};
@@ -199,13 +197,17 @@
             }
 
             $scope.checkInput = function (inputType) {
-                return $scope.survey.formSetting[inputType].length === 0;
+                if($scope.survey) {
+                    return $scope.survey.formSetting[inputType].length === 0;    
+                }
             }
         }
     ]);
 
     app.controller("surveyEditPageController", ["$scope", "$http", "$routeParams", "$window",
         function($scope, $http, $routeParams, $window) {
+            var ed = this;
+
             // http://localhost:3000/api/surveys/54d1374ea0f09231943ee5d2
             $http.get("http://localhost:3000/api/surveys/" + $routeParams.id).
             success(function(data) {
@@ -245,13 +247,11 @@
               return emptySurvey;
             }
 
-            $scope.addNation = function($event, nation) {
-                $event.preventDefault();
+            ed.addNation = function(nationInput) {
+                ed.nationInput = "";
                 var addingNation = {};
-                addingNation.name = nation;
+                addingNation.name = nationInput;
                 addingNation.index = $scope.survey.formSetting.nations.length;
-                $scope.nation = "";
-
                 $scope.survey.formSetting.nations.push(addingNation);
             }
 
@@ -259,12 +259,11 @@
                 $scope.survey.formSetting.nations.splice($index, 1);
             }
 
-            $scope.addCategory = function($event, category) {
-                $event.preventDefault();
+            ed.addCategory = function(categoryInput) {
+                ed.categoryInput = "";
                 var addingCategory = {};
-                addingCategory.name = category;
+                addingCategory.name = categoryInput;
                 addingCategory.index = $scope.survey.formSetting.categories.length;
-                $scope.category = "";
                 $scope.survey.formSetting.categories.push(addingCategory);
             }
 
@@ -272,12 +271,11 @@
                 $scope.survey.formSetting.categories.splice($index, 1);
             }
 
-            $scope.addIndex = function($event, index) {
-                $event.preventDefault();
+            ed.addIndex = function(indexInput) {
+                ed.indexInput = "";
                 var addingIndex = {};
-                addingIndex.name = index;
+                addingIndex.name = indexInput;
                 addingIndex.index = $scope.survey.formSetting.indicies.length;
-                $scope.index = "";
                 $scope.survey.formSetting.indicies.push(addingIndex);
             }
 
@@ -401,7 +399,12 @@
                 console.log($scope.survey);
             }
 
-
+            $scope.checkInput = function (inputType) {
+                if($scope.survey){
+                    return $scope.survey.formSetting[inputType].length === 0;    
+                }
+                
+            }
         }
     ]);
 })();
