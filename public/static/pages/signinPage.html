@@ -6,12 +6,11 @@
 					<div class="formy">
 						<div class="row" id="signin-form">
 							<div class="col-md-12">
-
                                 <form name="signinForm" ng-submit="vm.userSignin(vm.username, vm.password)">
 
                                     <!-- input:email -->
 							  		<div class="form-group">
-                                        <label for="text">username</label>
+                                        <label for="text">Username</label>
                                         <input type="text" class="form-control" id="username" name="username" ng-model="vm.username" minlength="4" maxlength="10" required placeholder="please enter your name">
 
                                         <div ng-messages="signinForm.username.$error" ng-messages-multiple>
