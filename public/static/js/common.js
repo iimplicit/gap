@@ -5,7 +5,7 @@
     "use strict";
     var app = angular.module("GAP", ["ngRoute", "ngMessages", "ngCookies"]);
 
-    app.constant("API_URL", "http://localhost:3000/api");
+    app.constant("API_URL", "http://gap.geec.info:3000/api");
 
     app.config(["$httpProvider",
         function($httpProvider) {
@@ -132,8 +132,8 @@
 
     app.controller("surveyEditPageController", ["$scope", "$http", "$routeParams",
         function($scope, $http, $routeParams) {
-            // http://localhost:3000/api/surveys/54d1374ea0f09231943ee5d2
-            $http.get("http://localhost:3000/api/surveys/" + $routeParams.id).
+            // http://gap.geec.infos:3000/api/surveys/54d1374ea0f09231943ee5d2
+            $http.get("http://gap.geec.info:3000/api/surveys/" + $routeParams.id).
             success(function(data) {
                 $scope.survey = data.survey;
             }).
@@ -143,7 +143,7 @@
 
             $scope.update = function(survey) {
                 // PUT Request to update a survey
-                $http.put("http://localhost:3000/api/surveys/" + $routeParams.id, survey).
+                $http.put("http://gap.geec.info:3000/api/surveys/" + $routeParams.id, survey).
                 success(function(data) {
                     console.log("success")
                     // should implement event after successfully updated

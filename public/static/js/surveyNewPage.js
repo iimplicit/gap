@@ -67,7 +67,7 @@
                 // if(!$scope.survey.title || $scope.survey.title === '') { return; }
 
                 // POST Request to create a survey
-                $http.post("http://localhost:3000/api/surveys", survey).
+                $http.post("http://gap.geec.info:3000/api/surveys", survey).
                 success(function(data) {
                     console.log("success");
                     // after a survey is successfully created,
@@ -208,8 +208,8 @@
         function($scope, $http, $routeParams, $window) {
             var ed = this;
 
-            // http://localhost:3000/api/surveys/54d1374ea0f09231943ee5d2
-            $http.get("http://localhost:3000/api/surveys/" + $routeParams.id).
+            // http://gap.geec.info:3000/api/surveys/54d1374ea0f09231943ee5d2
+            $http.get("http://gap.geec.info:3000/api/surveys/" + $routeParams.id).
             success(function(data) {
                 $scope.survey = data.survey;
             }).
@@ -219,7 +219,7 @@
 
             $scope.update = function(survey) {
                 // PUT Request to update a survey
-                $http.put("http://localhost:3000/api/surveys/" + $routeParams.id, survey).
+                $http.put("http://gap.geec.info:3000/api/surveys/" + $routeParams.id, survey).
                 success(function(data) {
                     console.log("success")
                     // should implement event after successfully updated
